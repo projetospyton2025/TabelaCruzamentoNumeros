@@ -1,23 +1,13 @@
-implemente 4 melhorias
-Numero zero deve ser reconhecido
-Os jogos deve ter 01,02,03 quando for o caso
-Faça funcinar os botões de download
-Adicione uma estatistica buscando os jogos premiados baseado nos concursos ja sorteados
+Requisitos a melhorar
+
+OBS: NÃO ALTERE NADA NA LOGICA MANTENHA COMO ESTÁ APENAS FOQUE NAS IMPLEMENTAÇÕES E MELHORIAS
+
+IMPLEMENTAÇÃO
+Fazer com que o numero zero seja mostrado no "triangle-grid"
+Gerar combinações não somente com 6 a 13 dezenas, mas sim de 6 a 20 
 
 
-1 -  O numero zero foi adicionado na validação mas parece que não foi incluido na formação do triangulo (vide foto)
-2 -  Se não tem 0 então não tem a combinação 01 10 12 13 15 21 29 31 34 43 46 47 51 
-note que tem o 10??? que poderia tanto ser da esquerda/direita ou diagonal(esquerda-direita correto?
-3 -  Os botões de download não estão funcionando... 
------------------------------------------------------
-4 - Fora isso adicione um botão chamado Conferir para 
-que o sistema use a api 
-<https://loteriascaixa-api.herokuapp.com/api) ou
-(https://loteriascaixa-api.herokuapp.com/api/megasena/latest) 
-para pegar os resultados da mega sena do concurso 1 até o atual 
-e fazer a conferência usando os jogos gerados.
-os mesmo devem ser destacado em verde... somente isso por enquando
-Traga um resumo do maior para o menor pontuados... 
-Mas tudo isso a partir dos numeros gerados........
+MELHORIAS
+Nenhum botão de download esta fazendo o download
 
 

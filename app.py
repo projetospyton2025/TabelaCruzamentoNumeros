@@ -238,30 +238,76 @@ def download(format):
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+# @app.route('/check-results', methods=['POST'])
+# def check_results():
+#     try:
+#         data = request.json
+#         generated_games = data['games']
+        
+#         # Buscar resultados da API com timeout e tratamento de erro
+#         try:
+#             response = requests.get(
+#                 'https://loteriascaixa-api.herokuapp.com/api/megasena/latest',
+#                 timeout=10
+#             )
+#             response.raise_for_status()  # Levanta exceção para códigos de erro HTTP
+#             latest_results = response.json()
+#         except requests.exceptions.RequestException as e:
+#             return jsonify({'error': f'Erro ao acessar API da loteria: {str(e)}'}), 500
+        
+#         # Analisar jogos
+#         results = []
+#         for game in generated_games:
+#             matches = []
+#             for result in latest_results:
+#                 numbers = set(map(int, game))
+#                 drawn_numbers = set(result['dezenas'])
+#                 hits = len(numbers.intersection(drawn_numbers))
+#                 if hits >= 4:  # Registrar apenas 4+ acertos
+#                     matches.append({
+#                         'concurso': result['concurso'],
+#                         'data': result['data'],
+#                         'acertos': hits,
+#                         'numeros_sorteados': result['dezenas']
+#                     })
+#             if matches:
+#                 results.append({
+#                     'jogo': game,
+#                     'resultados': sorted(matches, key=lambda x: x['acertos'], reverse=True)
+#                 })
+        
+#         return jsonify({
+#             'results': sorted(results, key=lambda x: max(r['acertos'] for r in x['resultados']), reverse=True)
+#         })
+        
+#     except Exception as e:
+#         return jsonify({'error': str(e)}), 400
+
+
 @app.route('/check-results', methods=['POST'])
 def check_results():
     try:
         data = request.json
         generated_games = data['games']
         
-        # Buscar resultados da API com timeout e tratamento de erro
+        # Buscar todos os resultados da Mega-Sena com timeout e tratamento de erro
         try:
             response = requests.get(
-                'https://loteriascaixa-api.herokuapp.com/api/megasena/latest',
+                'https://loteriascaixa-api.herokuapp.com/api/megasena',
                 timeout=10
             )
             response.raise_for_status()  # Levanta exceção para códigos de erro HTTP
-            latest_results = response.json()
+            all_results = response.json()
         except requests.exceptions.RequestException as e:
             return jsonify({'error': f'Erro ao acessar API da loteria: {str(e)}'}), 500
-        
-        # Analisar jogos
+
+        # Conferir jogos
         results = []
         for game in generated_games:
             matches = []
-            for result in latest_results:
+            for result in all_results:
                 numbers = set(map(int, game))
-                drawn_numbers = set(result['dezenas'])
+                drawn_numbers = set(map(int, result['dezenas']))
                 hits = len(numbers.intersection(drawn_numbers))
                 if hits >= 4:  # Registrar apenas 4+ acertos
                     matches.append({
@@ -282,8 +328,6 @@ def check_results():
         
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-
-
 
 
 
