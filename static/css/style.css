@@ -21,18 +21,20 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+
 .triangle-grid {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 0;
+    background-color: #e8f5e9;  /* Fundo verde claro */
     padding: 20px;
-    background: var(--mega-sena-light);
     border-radius: 8px;
+    margin: 20px 0;
 }
 
 .grid-row {
     display: flex;
+    justify-content: center;
     gap: 10px;
     margin: 5px 0;
 }
@@ -40,13 +42,13 @@ body {
 .grid-cell {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
+    border: 2px solid #209869;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
-    border: 2px solid var(--mega-sena-green);
-    border-radius: 50%;
-    font-weight: bold;
+    background-color: white;
+    font-size: 16px;
 }
 
 .download-buttons {

@@ -1,117 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     // Gerar campos de input com validação
-//     const inputSection = document.querySelector('.number-inputs');
-//     for (let i = 0; i < 15; i++) {
-//         const input = document.createElement('input');
-//         input.type = 'text';  // Mudado para text para melhor controle
-//         input.pattern = '[0-9]';  // Aceita apenas um dígito de 0-9
-//         input.required = true;
-//         input.maxLength = 1;
-//         input.addEventListener('input', function(e) {
-//             let value = e.target.value;
-//             // Permitir apenas dígitos de 0-9
-//             if (!/^[0-9]$/.test(value)) {
-//                 // Se o valor não for um único dígito entre 0-9, pega apenas o último dígito inserido
-//                 value = value.replace(/[^0-9]/g, '').slice(-1);
-//             }
-//             e.target.value = value;
-            
-//             // Auto-avançar para o próximo campo quando um dígito é inserido
-//             if (value && this.nextElementSibling && this.nextElementSibling.tagName === 'INPUT') {
-//                 this.nextElementSibling.focus();
-//             }
-//         });
-//         inputSection.appendChild(input);
-//     }
-
-//     // Função para gerar o grid de forma triangular
-//     function generateGrid(numbers) {
-//         const grid = document.querySelector('.triangle-grid');
-//         grid.innerHTML = '';
-        
-//         const rows = [5, 4, 3, 2, 1];
-//         let numberIndex = 0;
-        
-//         rows.forEach((cellCount) => {
-//             const row = document.createElement('div');
-//             row.className = 'grid-row';
-            
-//             for (let i = 0; i < cellCount; i++) {
-//                 const cell = document.createElement('div');
-//                 cell.className = 'grid-cell';
-//                 cell.textContent = numbers[numberIndex++] || '';
-//                 row.appendChild(cell);
-//             }
-            
-//             grid.appendChild(row);
-//         });
-//     }
-
-//     // Função para formatar o jogo (ordenar em ordem crescente)
-//     function formatGame(numbers) {
-//         return numbers.sort((a, b) => a - b).join(' ');
-//     }
-
-//     // Função para exibir as combinações
-//     function displayCombinations(combinations, numDezenas = 15) {
-//         const resultsDiv = document.getElementById('combinations-result');
-//         resultsDiv.innerHTML = `<h3>Jogos gerados com ${numDezenas} dezenas (Total: ${combinations.length} jogos)</h3>`;
-        
-//         combinations.forEach((combo, index) => {
-//             const formattedCombo = formatGame(combo);
-//             resultsDiv.innerHTML += `
-//                 <div class="combination">
-//                     Jogo ${index + 1}: ${formattedCombo}
-//                 </div>`;
-//         });
-//     }
-
-
-// // Substitua o event listener do botão 'generate-btn' por este:
-// document.getElementById('generate-btn').addEventListener('click', async function() {
-//     try {
-//         const inputs = document.querySelectorAll('.number-inputs input');
-//         const numbers = Array.from(inputs).map(input => parseInt(input.value));
-        
-//         // Validar se todos os campos foram preenchidos
-//         if (numbers.some(isNaN)) {
-//             alert('Por favor, preencha todos os números.');
-//             return;
-//         }
-        
-//         const numCombinations = parseInt(document.getElementById('num-combinations').value);
-        
-//         const response = await fetch('/generate', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 numbers: numbers,
-//                 combinations: numCombinations
-//             })
-//         });
-
-//         const data = await response.json();
-        
-//         if (!response.ok) {
-//             throw new Error(data.error || 'Erro ao gerar combinações');
-//         }
-
-//         generateGrid(numbers);
-//         displayCombinations(data.combinations, numCombinations);
-        
-//     } catch (error) {
-//         alert(error.message);
-//     }
-// });
-
-//     // Função para download dos resultados
-//     function downloadResults(format) {
-//         window.location.href = `/download/${format}`;
-//     }
-// });
-
 document.addEventListener('DOMContentLoaded', function() {
     // Gerar campos de input com validação
     const inputSection = document.querySelector('.number-inputs');
@@ -138,29 +24,73 @@ document.addEventListener('DOMContentLoaded', function() {
         inputSection.appendChild(input);
     }
 
-    // Função para gerar o grid de forma triangular
-    function generateGrid(numbers) {
-        const grid = document.querySelector('.triangle-grid');
-        grid.innerHTML = '';
+    // // Função para gerar o grid de forma triangular
+    // function generateGrid(numbers) {
+    //     const grid = document.querySelector('.triangle-grid');
+    //     grid.innerHTML = '';
         
-        const rows = [5, 4, 3, 2, 1];
-        let numberIndex = 0;
+    //     const rows = [5, 4, 3, 2, 1];
+    //     let numberIndex = 0;
         
-        rows.forEach((cellCount) => {
-            const row = document.createElement('div');
-            row.className = 'grid-row';
+    //     rows.forEach((cellCount) => {
+    //         const row = document.createElement('div');
+    //         row.className = 'grid-row';
             
-            for (let i = 0; i < cellCount; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                cell.textContent = numbers[numberIndex++] || '';
-                row.appendChild(cell);
-            }
+    //         for (let i = 0; i < cellCount; i++) {
+    //             const cell = document.createElement('div');
+    //             cell.className = 'grid-cell';
+    //             // Aqui está a correção para mostrar o zero
+    //             cell.textContent = numbers[numberIndex]?.toString() || '';
+    //             numberIndex++;
+    //         }
             
-            grid.appendChild(row);
-        });
-    }
+    //         grid.appendChild(row);
+    //     });
+    // }    
 
+
+// No arquivo main.js, atualize a função generateGrid:
+function generateGrid(numbers) {
+    const grid = document.querySelector('.triangle-grid');
+    grid.innerHTML = '';
+    
+    const rows = [5, 4, 3, 2, 1];
+    let numberIndex = 0;
+    
+    rows.forEach((cellCount) => {
+        const row = document.createElement('div');
+        row.className = 'grid-row';
+        row.style.justifyContent = 'center';  // Centraliza as células
+        row.style.display = 'flex';  // Garante que as células fiquem em linha
+        row.style.gap = '10px';  // Espaço entre as células
+        row.style.margin = '5px 0';  // Espaço entre as linhas
+        
+        for (let i = 0; i < cellCount; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            // Garante que o zero seja exibido
+            const value = numbers[numberIndex];
+            cell.textContent = (value !== undefined && value !== null) ? value.toString() : '';
+            // Adiciona estilos para a célula circular
+            cell.style.width = '40px';
+            cell.style.height = '40px';
+            cell.style.borderRadius = '50%';
+            cell.style.border = '2px solid #209869';  // Cor verde da Mega Sena
+            cell.style.display = 'flex';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'center';
+            cell.style.backgroundColor = 'white';
+            cell.style.fontSize = '16px';
+            
+            row.appendChild(cell);
+            numberIndex++;
+        }
+        
+        grid.appendChild(row);
+    });
+}
+
+    
     // Função para formatar o jogo (ordenar em ordem crescente)
     function formatGame(numbers) {
         return numbers.sort((a, b) => a - b).join(' ');
@@ -231,10 +161,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Substitua o event listener do botão 'generate-btn' por este:
     document.getElementById('generate-btn').addEventListener('click', async function() {
         try {
+            showLoading();
             const inputs = document.querySelectorAll('.number-inputs input');
             const numbers = Array.from(inputs).map(input => parseInt(input.value));
             
-            // Validar se todos os campos foram preenchidos
             if (numbers.some(isNaN)) {
                 alert('Por favor, preencha todos os números.');
                 return;
@@ -252,23 +182,54 @@ document.addEventListener('DOMContentLoaded', function() {
                     combinations: numCombinations
                 })
             });
-
+    
             const data = await response.json();
             
             if (!response.ok) {
                 throw new Error(data.error || 'Erro ao gerar combinações');
             }
-
+    
+            // Gera o grid triangular
             generateGrid(numbers);
+            
+            // Exibe as combinações
             displayCombinations(data.combinations, numCombinations);
             
         } catch (error) {
             alert(error.message);
+        } finally {
+            hideLoading();
         }
     });
 
-    // Função para download dos resultados
+
+    // Para corrigir os downloads, adicione o handler correto no JavaScript:
     function downloadResults(format) {
-        window.location.href = `/download/${format}`;
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = `/download/${format}`;
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
+
+    // Adicione os event listeners para os botões
+    document.getElementById('download-txt').addEventListener('click', () => downloadResults('txt'));
+    document.getElementById('download-html').addEventListener('click', () => downloadResults('html'));
+    document.getElementById('download-excel').addEventListener('click', () => downloadResults('xlsx'));
+
 });
+
+//Feedback visual:
+function showLoading() {
+    const btn = document.getElementById('generate-btn');
+    btn.disabled = true;
+    btn.textContent = 'Gerando...';
+}
+
+function hideLoading() {
+    const btn = document.getElementById('generate-btn');
+    btn.disabled = false;
+    btn.textContent = 'Gerar Combinações';
+}
+

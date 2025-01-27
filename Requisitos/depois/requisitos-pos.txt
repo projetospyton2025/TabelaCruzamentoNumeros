@@ -5,9 +5,43 @@ OBS: NÃO ALTERE NADA NA LOGICA MANTENHA COMO ESTÁ APENAS FOQUE NAS IMPLEMENTA�
 IMPLEMENTAÇÃO
 Fazer com que o numero zero seja mostrado no "triangle-grid"
 Gerar combinações não somente com 6 a 13 dezenas, mas sim de 6 a 20 
-
+Feedback visual para o usuario... 
 
 MELHORIAS
 Nenhum botão de download esta fazendo o download
 
 
+uma pergunta o fato do numero zero não aparecer no "triangle-grid" influencia na 
+geração das combinações pois posso ver claramente que poderia ser combinado o 06 e depois o 60!!!!!!
+veja os numeros que o usuário digitou.. 
+3 1 2 9 6 4 3 1 5 7 4 6 1 0 1
+Concorda comigo ou não?
+
+Foi garado 1716 jogos mas nenhum tem o 06 e o 60
+
+
+-----------------------------------------------------------------------------------------------
+Combinações Geradas
+Jogos gerados com 6 dezenas (Total: 1716 jogos)
+Jogos gerados com 7 dezenas (Total: 1716 jogos)   Mesma quantidade de jogos???? é isso mesmo??
+Jogos gerados com 8 dezenas (Total: 1287 jogos)
+Jogos gerados com 9 dezenas (Total: 715 jogos)
+Jogos gerados com 10 dezenas (Total: 286 jogos)
+Jogos gerados com 11 dezenas (Total: 78 jogos)
+Jogos gerados com 12 dezenas (Total: 13 jogos)
+Jogos gerados com 13 dezenas (Total: 1 jogos) Jogo 01: 01 10 12 13 15 21 29 31 34 43 46 47 51 
+
+ou
+Jogos gerados com 13 dezenas (Total: 2 jogos)   Jogo 01: 01 10 12 13 15 21 29 31 34 43 46 47 51 
+												Jogo 02: 01 06 12 13 15 21 29 31 34 43 46 47 51 
+												so aqui caberia mais combinações.. 
+												Jogo 03: 01 06 12 13 15 21 29 31 34 43 46 47 60 ... e mais..  
+
+Jogos gerados com 14 dezenas (Total: 0 jogos) Jogo 01: 01 06 10 12 13 15 21 29 31 34 43 46 47 51 (aqui caberia a dezena 06 por exemplo)
+Jogos gerados com 15 dezenas (Total: 0 jogos) Jogo 01: 01 06 10 12 13 15 21 29 31 34 43 46 47 51 60 (aqui caberia a dezena 60 por exemplo)
+Jogos gerados com 16 dezenas (Total: 0 jogos)
+Jogos gerados com 17 dezenas (Total: 0 jogos)
+Jogos gerados com 18 dezenas (Total: 0 jogos)
+Jogos gerados com 19 dezenas (Total: 0 jogos)
+Jogos gerados com 20 dezenas (Total: 0 jogos)
+-----------------------------------------------------------------------------------------------
