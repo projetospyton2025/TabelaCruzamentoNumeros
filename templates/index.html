@@ -1,0 +1,47 @@
+<!--# HTML Template (templates/index.html):-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela Cruzamento Números - Mega Sena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Tabela de Cruzamento de Números</h1>
+        
+        <div class="input-section">
+            <h2>Digite 15 números (1-60):</h2>
+            <div class="number-inputs">
+                <!-- JavaScript will generate input fields -->
+            </div><br />
+            
+            <div class="combinations-input">
+                <label for="num-combinations">Número de combinações:</label>
+                <input type="number" id="num-combinations" min="6" max="20" value="6">
+            </div><br />
+            
+            <button id="generate-btn">Gerar Combinações</button>
+        </div>
+
+        <div class="triangle-grid">
+            <!-- JavaScript will generate the grid -->
+             <p></p>
+        </div>
+
+        <div class="results-section">
+            <h2>Combinações Geradas</h2>
+            <div id="combinations-result"></div>
+            
+            <div class="download-buttons">
+                <button onclick="downloadResults('txt')">Download TXT</button>
+                <button onclick="downloadResults('html')">Download HTML</button>
+                <button onclick="downloadResults('xlsx')">Download Excel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

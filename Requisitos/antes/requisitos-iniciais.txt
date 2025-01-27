@@ -1,0 +1,89 @@
+Crie um projeto em python com versão web (*.html, css e javascript)
+para criar uma tabela com numeros informado pelo usuário com validação de 1 a 60 (mega sena)
+
+---Serao 15 numeros informados eles se formarão em uma grid conforme figura apresentada formula de triangulo
+sendo que os numero informados terão uma ordem e os mesmo deve seguir na criação desta grid em forma de triangulo
+
+---Usando estes numeros dispostos na grid quando o usuário clicar no botão gerar
+
+O sistema deve:
+
+Observar quantas combinações o usuario quer (6 a 20)
+Dai observar a grid gerada e 
+selecionar apenas grupo de duas unidades tanto da 
+esquerda/direita, horizontal/vertical, cima/baixo, diagonal ou seja em todas as posições desde que seja sempre duas unidades
+afim de buscar a formação de dezenas para a mega sena.. 
+
+Exemplo
+
+1  4  4  7  4
+  5  8  1  1
+   3   9  2
+     2   1
+       3
+
+onde pode se gerar 
+14 (horizontal) da esquerda para a direita
+18 (horizontal) da direita para a esquerda
+23	(diagonal) da esquerda para a direito
+13 (diagonal) da direira para a esquerda
+39 (vertical) de baixo para cima (note que de cima para baixo não daria pois iria ultrapassar 1 a 60 (93)
+para vertical os numeros deverão ficar alinhados conforme criação da grid
+
+
+então atraves desta lógica o sistema observa os numeros e cria o máximo de combinação possivel seguindo esta logica até se esgotar as possibilidades..   
+E o usuario informa com quantas comginações ele quer que seja criado 
+
+Exemplo 
+(6) 13,14,23,39,48,56
+(7) 13,14,23,38,39,48,56
+(8) 11,13,14,23,38,39,48,56
+e assim quanto for possivel
+sem repetição de numeros na mesma seguencia.. 
+
+
+Adicione botões para dowload... 
+*.txt
+*.html*
+*.xls(x)
+
+
+CSS cores da mega sena
+grid (com cores clara de fundo, sombra... profissional)
+
+----------------------------------------o nome do projeto tbm sera chamado TabelaCruzamentoNumero
+
+Crie tbm um script chamado TabelaCruzamentoNumeros.ps1 para:
+Definir o diretório do projeto (já vou estar dentro da pasta (com o nome definido) uma vez que vem direto do Github)
+Criar diretórios
+Criar arquivos
+Criar o ambiente virtual
+Carregar o perfil do PowerShell ($PROFILE)
+Ativar o ambiente virtual diretamente
+Informar o usuário para preencher o arquivo requirements.txt
+Instalar as dependências do requirements.txt
+----------------------------------------
+
+Mostre me:
+Exemplo no artefato
+Onde colocar cada conteudo
+Simples e funcional
+
+
+
+
+TabelaCruzamentoNumero/
+│
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+│
+├── templates/
+│   └── index.html
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── TabelaCruzamentoNumeros.ps1
