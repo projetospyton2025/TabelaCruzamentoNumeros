@@ -90,3 +90,21 @@ button:hover {
     color: var(--mega-sena-green);
     margin: 20px 0;
 }
+.has-hits {
+    background-color: #90EE90;
+}
+
+.hits-info {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+#check-results {
+    background-color: var(--mega-sena-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
