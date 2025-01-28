@@ -3,6 +3,6 @@ pandas==1.3.3
 openpyxl==3.0.9
 Werkzeug
 requests
-numpy==1.21.6
-# numpy==1.23.5  # Ou uma versão estável que você sabe que funciona
+# numpy==1.21.6
+numpy==1.23.5  # Ou uma versão estável que você sabe que funciona
 # numpy --prefer-binary
