@@ -1,0 +1,26 @@
+2025-01-28 15:46:37,679 - INFO - Iniciando aplicação na porta 10000.
+2025-01-28 15:46:37,752 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.11.108:10000
+2025-01-28 15:46:37,758 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 15:46:43,386 - INFO - Rota principal '/' acessada.
+2025-01-28 15:46:43,406 - INFO - 127.0.0.1 - - [28/Jan/2025 15:46:43] "GET / HTTP/1.1" 200 -
+2025-01-28 15:46:43,707 - INFO - 127.0.0.1 - - [28/Jan/2025 15:46:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-01-28 15:46:43,708 - INFO - 127.0.0.1 - - [28/Jan/2025 15:46:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-28 15:47:34,591 - INFO - Recebendo requisição para geração de combinações.
+2025-01-28 15:47:36,129 - INFO - Números recebidos: [3, 1, 2, 9, 6, 4, 3, 1, 5, 7, 4, 6, 1, 0, 1]
+2025-01-28 15:47:36,130 - INFO - Quantidade de dezenas: 6
+2025-01-28 15:47:36,131 - INFO - Gerando pares válidos para a grid fornecida.
+2025-01-28 15:47:36,133 - INFO - Pares válidos encontrados: set()
+2025-01-28 15:47:36,134 - INFO - Pares válidos gerados: []
+2025-01-28 15:47:36,136 - INFO - Total de jogos válidos gerados: 0
+2025-01-28 15:47:36,138 - INFO - 127.0.0.1 - - [28/Jan/2025 15:47:36] "POST /generate HTTP/1.1" 200 -
+2025-01-28 15:48:03,472 - INFO - Recebendo requisição para geração de combinações.
+2025-01-28 15:48:03,473 - INFO - Números recebidos: [3, 1, 2, 9, 6, 4, 3, 1, 5, 7, 4, 6, 1, 0, 1]
+2025-01-28 15:48:03,474 - INFO - Quantidade de dezenas: 7
+2025-01-28 15:48:03,475 - INFO - Gerando pares válidos para a grid fornecida.
+2025-01-28 15:48:03,476 - INFO - Pares válidos encontrados: set()
+2025-01-28 15:48:03,477 - INFO - Pares válidos gerados: []
+2025-01-28 15:48:03,478 - INFO - Total de jogos válidos gerados: 0
+2025-01-28 15:48:03,483 - INFO - 127.0.0.1 - - [28/Jan/2025 15:48:03] "POST /generate HTTP/1.1" 200 -
