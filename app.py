@@ -29,87 +29,6 @@ def combine_digits(a, b):
 
 
 
-# # Gerando os numeros da grid tringulo
-# def get_valid_pairs(grid):
-#     valid_pairs = set()
-#     rows = [
-#         grid[0:5],    # primeira linha
-#         grid[5:9],    # segunda linha
-#         grid[9:12],   # terceira linha
-#         grid[12:14],  # quarta linha
-#         grid[14:15]   # quinta linha
-#     ]
-    
-#     # Função auxiliar para validar e adicionar números
-#     def add_valid_number(num):
-#         if 1 <= num <= 60:
-#             valid_pairs.add(num)
-    
-#     # 1. Horizontal (esquerda para direita e direita para esquerda)
-#     for row in rows:
-#         for i in range(len(row)-1):
-#             add_valid_number(combine_digits(row[i], row[i+1]))
-#             add_valid_number(combine_digits(row[i+1], row[i]))
-
-#     # 2. Diagonal (superior esquerda para inferior direita)
-#     for i in range(len(rows)-1):
-#         current_row = rows[i]
-#         next_row = rows[i+1]
-#         for j in range(len(current_row)-1):
-#             if j < len(next_row):
-#                 add_valid_number(combine_digits(current_row[j], next_row[j]))
-#                 add_valid_number(combine_digits(next_row[j], current_row[j]))
-
-#     # 3. Diagonal (superior direita para inferior esquerda)
-#     for i in range(len(rows)-1):
-#         current_row = rows[i]
-#         next_row = rows[i+1]
-#         for j in range(1, len(current_row)):
-#             if j-1 < len(next_row):
-#                 add_valid_number(combine_digits(current_row[j], next_row[j-1]))
-#                 add_valid_number(combine_digits(next_row[j-1], current_row[j]))
-
-#     # 4. Vertical
-#     col_positions = [
-#         [(0,0), (1,0), (2,0), (3,0), (4,0)],  # primeira coluna
-#         [(0,1), (1,1), (2,1), (3,1)],         # segunda coluna
-#         [(0,2), (1,2), (2,2)],                # terceira coluna
-#         [(0,3), (1,3)],                       # quarta coluna
-#         [(0,4)]                               # quinta coluna
-#     ]
-    
-#     for col in col_positions:
-#         for i in range(len(col)-1):
-#             row1, pos1 = col[i]
-#             row2, pos2 = col[i+1]
-#             if pos1 < len(rows[row1]) and pos2 < len(rows[row2]):
-#                 add_valid_number(combine_digits(rows[row1][pos1], rows[row2][pos2]))
-#                 add_valid_number(combine_digits(rows[row2][pos2], rows[row1][pos1]))
-
-#     # 5. Tratamento especial para zero
-#     for i, row in enumerate(rows):
-#         for j, num in enumerate(row):
-#             if num == 0:
-#                 # Verificar números adjacentes (horizontal, vertical e diagonal)
-#                 adjacent_positions = [
-#                     (i, j-1), (i, j+1),  # horizontal
-#                     (i-1, j), (i+1, j),  # vertical
-#                     (i-1, j-1), (i-1, j+1),  # diagonal superior
-#                     (i+1, j-1), (i+1, j+1)   # diagonal inferior
-#                 ]
-                
-#                 for adj_i, adj_j in adjacent_positions:
-#                     if (0 <= adj_i < len(rows) and 
-#                         0 <= adj_j < len(rows[adj_i])):
-#                         adj_num = rows[adj_i][adj_j]
-#                         # Zero à esquerda (06)
-#                         add_valid_number(combine_digits(0, adj_num))
-#                         # Zero à direita (60)
-#                         add_valid_number(combine_digits(adj_num, 0))
-
-#     return sorted(list(valid_pairs))
-
-
 # Gerando os números da grid triângulo
 def get_valid_pairs(grid):
     valid_pairs = set()
@@ -395,15 +314,15 @@ def check_results():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-
+"""
 if __name__ == '__main__':
     app.run(debug=True)  # Corrigido o espaçamento
-
+"""
 
 # Carrega as variáveis do arquivo .env
 load_dotenv()
 
 # Configuração da porta
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Obtém a porta do ambiente ou usa 5000 como padrão
+    port = int(os.environ.get("PORT", 10000))  # Obtém a porta do ambiente ou usa 5000 como padrão
     app.run(host="0.0.0.0", port=port)  # Inicia o servidor Flask na porta correta
