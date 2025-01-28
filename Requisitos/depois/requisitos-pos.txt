@@ -12,11 +12,18 @@ algo esta faltando é que eu me perdi... na lógica..
 
 
 
-os pares validos encontrados na console mostra estes.. 
-Pares válidos encontrados: 
-[1, 4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 23, 24, 31, 32, 34, 37, 40, 41, 42, 43, 46, 47, 51, 56, 59, 60] 
-e no fronted mostram apenas estes 
-19 51 37 24 23 21 04 17 10 12 34 13 31 40 60 59 41 07 43 47
+Pares válidos sendo enviados:
+[1, 4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 23, 29, 31, 32, 34, 37, 40, 41, 43, 46, 47, 51, 59, 60]  
+
+Pares válidos encontrados:
+[1, 4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 23, 29, 31, 32, 34, 37, 40, 41, 43, 46, 47, 51, 59, 60]  
+
+
+# Limitar o número máximo de combinações
+MAX_COMBINATIONS = 2000  # Ajustável conforme necessário
+
+
+O número máximo de combinações esta setado para 2000 por conjunto de dezenas
 
 
 

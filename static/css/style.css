@@ -4,6 +4,14 @@
     --mega-sena-green: #209869;
     --mega-sena-light: #e8f5e9;
 }
+h2 {
+    color: var(--mega-sena-green);
+    margin-bottom: 1rem;
+}
+h1{
+    color: var(--mega-sena-green);
+    text-align: center;
+}
 
 body {
     font-family: Arial, sans-serif;
@@ -135,4 +143,14 @@ button:hover {
     font-size: 16px;
     min-width: 30px;
     text-align: center;
+}
+.instrucaoes{
+    background-color: #f9f9f9; /* Fundo cinza claro */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    padding: 20px; /* Espaçamento interno */
+    text-align: left; /* Centraliza o texto */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    color: #333; /* Cor do texto */
+    line-height: 35px;
 }

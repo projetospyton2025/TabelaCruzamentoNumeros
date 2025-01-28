@@ -6,6 +6,8 @@ import requests
 import io
 import json
 from itertools import combinations
+import os
+from dotenv import load_dotenv
 
 
 # E adicione esta configuração após criar a app
@@ -396,3 +398,12 @@ def check_results():
 
 if __name__ == '__main__':
     app.run(debug=True)  # Corrigido o espaçamento
+
+
+# Carrega as variáveis do arquivo .env
+load_dotenv()
+
+# Configuração da porta
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))  # Obtém a porta do ambiente ou usa 5000 como padrão
+    app.run(host="0.0.0.0", port=port)  # Inicia o servidor Flask na porta correta
