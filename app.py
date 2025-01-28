@@ -25,6 +25,45 @@ def combine_digits(a, b):
     """Combina dois dígitos para formar um número"""
     return int(f"{a}{b}")
 
+# def get_valid_pairs(grid):
+#     valid_pairs = set()
+#     rows = [
+#         grid[0:5],    # primeira linha
+#         grid[5:9],    # segunda linha
+#         grid[9:12],   # terceira linha
+#         grid[12:14],  # quarta linha
+#         grid[14:15]   # quinta linha
+#     ]
+
+   
+#     # Horizontal (esquerda para direita e direita para esquerda)
+#     for row in rows:
+#         for i in range(len(row)-1):
+#             # Considerar combinações nos dois sentidos
+#             num1 = combine_digits(row[i], row[i+1])
+#             num2 = combine_digits(row[i+1], row[i])
+#             # Verificar se as combinações estão no intervalo válido
+#             if 1 <= num1 <= 60:
+#                 valid_pairs.add(num1)
+#             if 1 <= num2 <= 60:
+#                 valid_pairs.add(num2)
+#             # Zero à esquerda também é válido (06)
+#             if row[i] == 0:
+#                 zero_combo = row[i+1]
+#                 if 1 <= zero_combo <= 60:
+#                     valid_pairs.add(zero_combo)
+#             if row[i+1] == 0:
+#                 zero_combo = row[i]
+#                 if 1 <= zero_combo <= 60:
+#                     valid_pairs.add(zero_combo)
+    
+#     # Diagonal e vertical
+#     # Implementar lógica adicional aqui...
+    
+#     return sorted(list(valid_pairs))
+
+#Esta função está causando este erro "NetworkError when attempting to fetch resource."
+#Gerando os numeros da grid tringulo
 def get_valid_pairs(grid):
     valid_pairs = set()
     rows = [
@@ -35,73 +74,146 @@ def get_valid_pairs(grid):
         grid[14:15]   # quinta linha
     ]
     
-    # Horizontal (esquerda para direita e direita para esquerda)
+    # Função auxiliar para validar e adicionar números
+    def add_valid_number(num):
+        if 1 <= num <= 60:
+            valid_pairs.add(num)
+    
+    # 1. Horizontal (esquerda para direita e direita para esquerda)
     for row in rows:
         for i in range(len(row)-1):
-            # Considerar combinações nos dois sentidos
-            num1 = combine_digits(row[i], row[i+1])
-            num2 = combine_digits(row[i+1], row[i])
-            # Verificar se as combinações estão no intervalo válido
-            if 1 <= num1 <= 60:
-                valid_pairs.add(num1)
-            if 1 <= num2 <= 60:
-                valid_pairs.add(num2)
-            # Zero à esquerda também é válido (06)
-            if row[i] == 0:
-                zero_combo = row[i+1]
-                if 1 <= zero_combo <= 60:
-                    valid_pairs.add(zero_combo)
-            if row[i+1] == 0:
-                zero_combo = row[i]
-                if 1 <= zero_combo <= 60:
-                    valid_pairs.add(zero_combo)
+            add_valid_number(combine_digits(row[i], row[i+1]))
+            add_valid_number(combine_digits(row[i+1], row[i]))
+
+    # 2. Diagonal (superior esquerda para inferior direita)
+    for i in range(len(rows)-1):
+        current_row = rows[i]
+        next_row = rows[i+1]
+        for j in range(len(current_row)-1):
+            if j < len(next_row):
+                add_valid_number(combine_digits(current_row[j], next_row[j]))
+                add_valid_number(combine_digits(next_row[j], current_row[j]))
+
+    # 3. Diagonal (superior direita para inferior esquerda)
+    for i in range(len(rows)-1):
+        current_row = rows[i]
+        next_row = rows[i+1]
+        for j in range(1, len(current_row)):
+            if j-1 < len(next_row):
+                add_valid_number(combine_digits(current_row[j], next_row[j-1]))
+                add_valid_number(combine_digits(next_row[j-1], current_row[j]))
+
+    # 4. Vertical
+    col_positions = [
+        [(0,0), (1,0), (2,0), (3,0), (4,0)],  # primeira coluna
+        [(0,1), (1,1), (2,1), (3,1)],         # segunda coluna
+        [(0,2), (1,2), (2,2)],                # terceira coluna
+        [(0,3), (1,3)],                       # quarta coluna
+        [(0,4)]                               # quinta coluna
+    ]
     
-    # Diagonal e vertical
-    # Implementar lógica adicional aqui...
-    
+    for col in col_positions:
+        for i in range(len(col)-1):
+            row1, pos1 = col[i]
+            row2, pos2 = col[i+1]
+            if pos1 < len(rows[row1]) and pos2 < len(rows[row2]):
+                add_valid_number(combine_digits(rows[row1][pos1], rows[row2][pos2]))
+                add_valid_number(combine_digits(rows[row2][pos2], rows[row1][pos1]))
+
+    # 5. Tratamento especial para zero
+    for i, row in enumerate(rows):
+        for j, num in enumerate(row):
+            if num == 0:
+                # Verificar números adjacentes (horizontal, vertical e diagonal)
+                adjacent_positions = [
+                    (i, j-1), (i, j+1),  # horizontal
+                    (i-1, j), (i+1, j),  # vertical
+                    (i-1, j-1), (i-1, j+1),  # diagonal superior
+                    (i+1, j-1), (i+1, j+1)   # diagonal inferior
+                ]
+                
+                for adj_i, adj_j in adjacent_positions:
+                    if (0 <= adj_i < len(rows) and 
+                        0 <= adj_j < len(rows[adj_i])):
+                        adj_num = rows[adj_i][adj_j]
+                        # Zero à esquerda (06)
+                        add_valid_number(combine_digits(0, adj_num))
+                        # Zero à direita (60)
+                        add_valid_number(combine_digits(adj_num, 0))
+
     return sorted(list(valid_pairs))
 
 
 @app.route('/generate', methods=['POST'])
 def generate():
     try:
+        print("Recebendo requisição...")
+        
         data = request.json
-        numbers = data['numbers']
-        num_dezenas = data['combinations']
+        if not data:
+            return jsonify({'error': 'Dados não recebidos'}), 400
+            
+        numbers = data.get('numbers')
+        num_dezenas = data.get('combinations')
+        
+        if not numbers or not num_dezenas:
+            return jsonify({'error': 'Parâmetros incompletos'}), 400
+            
+        print(f"Números recebidos: {numbers}")
+        print(f"Quantidade de dezenas: {num_dezenas}")
         
         valid_pairs = get_valid_pairs(numbers)
+        print(f"Pares válidos encontrados: {valid_pairs}")
         
-        # Gerar combinações de acordo com o número de dezenas solicitado
-        if 6 <= num_dezenas <= 20:  # Permitir até 20 dezenas
-            jogos = list(combinations(valid_pairs, num_dezenas))
-            
-            jogos_validos = []
-            for jogo in jogos:
-                jogo_ordenado = sorted(jogo)
-                if (len(set(jogo_ordenado)) == len(jogo_ordenado) and
-                    all(1 <= num <= 60 for num in jogo_ordenado)):
-                    jogos_validos.append([format_number(n) for n in jogo_ordenado])
-            
-            # Armazenar na sessão para download
-            session['combinations'] = jogos_validos
-            session['num_dezenas'] = num_dezenas
-            
-            return jsonify({
-                'combinations': jogos_validos,
-                'total': len(jogos_validos)
-            })
-        else:
+        if not (6 <= num_dezenas <= 20):
             return jsonify({'error': 'Número de dezenas deve estar entre 6 e 20'}), 400
+        
+        # Calcular total de combinações possíveis
+        from math import comb
+        total_possible = comb(len(valid_pairs), num_dezenas)
+        
+        # Limitar o número máximo de combinações
+        # MAX_COMBINATIONS = 1000  # Você pode ajustar este valor
+        MAX_COMBINATIONS = 2000  # Você pode ajustar este valor
+        
+        if total_possible > MAX_COMBINATIONS:
+            # Se houver muitas combinações, pegar uma amostra aleatória
+            import random
+            valid_pairs = random.sample(valid_pairs, min(len(valid_pairs), 20))
+            print(f"Limitando para {len(valid_pairs)} números devido ao grande volume")
+        
+        jogos = list(combinations(valid_pairs, num_dezenas))
+        
+        # Limitar o número de jogos se ainda estiver muito grande
+        if len(jogos) > MAX_COMBINATIONS:
+            jogos = random.sample(jogos, MAX_COMBINATIONS)
+        
+        jogos_validos = []
+        for jogo in jogos:
+            jogo_ordenado = sorted(jogo)
+            if (len(set(jogo_ordenado)) == len(jogo_ordenado) and
+                all(1 <= num <= 60 for num in jogo_ordenado)):
+                jogos_validos.append([format_number(n) for n in jogo_ordenado])
+        
+        print(f"Total de jogos gerados: {len(jogos_validos)}")
+        
+        return jsonify({
+            'combinations': jogos_validos,
+            'total': len(jogos_validos)
+        })
             
     except Exception as e:
+        print(f"Erro: {str(e)}")
         return jsonify({'error': str(e)}), 400
 
-@app.route('/download/<format>')
+
+
+@app.route('/download/<format>', methods=['POST'])
 def download(format):
     try:
-        # Recuperar dados da sessão ou receber como parâmetro
-        combinations = session.get('combinations', [])
-        num_dezenas = session.get('num_dezenas', 6)
+        data = request.json
+        combinations = data.get('combinations', [])
+        num_dezenas = data.get('num_dezenas', 6)
         
         if format == 'txt':
             output = io.StringIO()

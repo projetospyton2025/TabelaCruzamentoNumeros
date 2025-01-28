@@ -29,7 +29,8 @@ function hideLoading() {
 
 });
 
-//Gerando os numeros da grid tringulo
+#Esta função está causando este erro "NetworkError when attempting to fetch resource."
+#Gerando os numeros da grid tringulo
 def get_valid_pairs(grid):
     valid_pairs = set()
     rows = [
@@ -108,3 +109,5 @@ def get_valid_pairs(grid):
                         add_valid_number(combine_digits(adj_num, 0))
 
     return sorted(list(valid_pairs))
+	
+	

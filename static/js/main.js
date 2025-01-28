@@ -24,29 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         inputSection.appendChild(input);
     }
 
-    // // Função para gerar o grid de forma triangular
-    // function generateGrid(numbers) {
-    //     const grid = document.querySelector('.triangle-grid');
-    //     grid.innerHTML = '';
-        
-    //     const rows = [5, 4, 3, 2, 1];
-    //     let numberIndex = 0;
-        
-    //     rows.forEach((cellCount) => {
-    //         const row = document.createElement('div');
-    //         row.className = 'grid-row';
-            
-    //         for (let i = 0; i < cellCount; i++) {
-    //             const cell = document.createElement('div');
-    //             cell.className = 'grid-cell';
-    //             // Aqui está a correção para mostrar o zero
-    //             cell.textContent = numbers[numberIndex]?.toString() || '';
-    //             numberIndex++;
-    //         }
-            
-    //         grid.appendChild(row);
-    //     });
-    // }    
 
 
 // No arquivo main.js, atualize a função generateGrid:
@@ -97,25 +74,30 @@ function generateGrid(numbers) {
     }
 
     // Função para exibir as combinações (atualizada com funcionalidades do código2)
-    function displayCombinations(combinations, numDezenas = 15) {
-        const resultsDiv = document.getElementById('combinations-result');
-        resultsDiv.innerHTML = `
-            <h3>Jogos gerados com ${numDezenas} dezenas (Total: ${combinations.length} jogos)</h3>
-            <div id="games-list"></div>
-            <button id="check-results" class="btn btn-primary mt-3">Conferir Resultados</button>
-        `;
-        
-        const gamesList = document.getElementById('games-list');
-        combinations.forEach((combo, index) => {
-            gamesList.innerHTML += `
-                <div class="combination" data-game="${combo.join(' ')}">
-                    Jogo ${(index + 1).toString().padStart(2, '0')}: ${combo.join(' ')}
-                </div>`;
-        });
-        
-        // Adicionar listener para o botão de conferência
-        document.getElementById('check-results').addEventListener('click', checkResults);
-    }
+// Modifique a função displayCombinations:
+function displayCombinations(combinations, numDezenas = 15) {
+    const resultsDiv = document.getElementById('combinations-result');
+    resultsDiv.innerHTML = `
+        <h3>Jogos gerados com ${numDezenas} dezenas</h3>
+        <p>Total de jogos: ${combinations.length}</p>
+        ${combinations.length === 1000 ? '<p style="color: #f57c00;">* Limitado a 1000 jogos devido ao grande volume de combinações possíveis</p>' : ''}
+        <div id="games-list"></div>
+        <button id="check-results" class="btn btn-primary mt-3">Conferir Resultados</button>
+    `;
+    
+    const gamesList = document.getElementById('games-list');
+    combinations.forEach((combo, index) => {
+        gamesList.innerHTML += `
+            <div class="combination" data-game="${combo.join(' ')}">
+                Jogo ${(index + 1).toString().padStart(2, '0')}: ${combo.join(' ')}
+            </div>`;
+    });
+    
+    document.getElementById('check-results').addEventListener('click', checkResults);
+}
+
+
+
 
     // Função para conferir os resultados
     async function checkResults() {
@@ -158,7 +140,50 @@ function generateGrid(numbers) {
         }
     }
 
-    // Substitua o event listener do botão 'generate-btn' por este:
+    // // Substitua o event listener do botão 'generate-btn' por este:
+    // document.getElementById('generate-btn').addEventListener('click', async function() {
+    //     try {
+    //         showLoading();
+    //         const inputs = document.querySelectorAll('.number-inputs input');
+    //         const numbers = Array.from(inputs).map(input => parseInt(input.value));
+            
+    //         if (numbers.some(isNaN)) {
+    //             alert('Por favor, preencha todos os números.');
+    //             return;
+    //         }
+            
+    //         const numCombinations = parseInt(document.getElementById('num-combinations').value);
+            
+    //         const response = await fetch('/generate', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 numbers: numbers,
+    //                 combinations: numCombinations
+    //             })
+    //         });
+    
+    //         const data = await response.json();
+            
+    //         if (!response.ok) {
+    //             throw new Error(data.error || 'Erro ao gerar combinações');
+    //         }
+    
+    //         // Gera o grid triangular
+    //         generateGrid(numbers);
+            
+    //         // Exibe as combinações
+    //         displayCombinations(data.combinations, numCombinations);
+            
+    //     } catch (error) {
+    //         alert(error.message);
+    //     } finally {
+    //         hideLoading();
+    //     }
+    // });
+
     document.getElementById('generate-btn').addEventListener('click', async function() {
         try {
             showLoading();
@@ -175,7 +200,8 @@ function generateGrid(numbers) {
             const response = await fetch('/generate', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     numbers: numbers,
@@ -183,12 +209,13 @@ function generateGrid(numbers) {
                 })
             });
     
-            const data = await response.json();
-            
             if (!response.ok) {
-                throw new Error(data.error || 'Erro ao gerar combinações');
+                const errorData = await response.json();
+                throw new Error(errorData.error || `Erro ${response.status}: ${response.statusText}`);
             }
     
+            const data = await response.json();
+            
             // Gera o grid triangular
             generateGrid(numbers);
             
@@ -196,7 +223,8 @@ function generateGrid(numbers) {
             displayCombinations(data.combinations, numCombinations);
             
         } catch (error) {
-            alert(error.message);
+            console.error('Erro:', error);
+            alert('Erro ao gerar combinações: ' + error.message);
         } finally {
             hideLoading();
         }

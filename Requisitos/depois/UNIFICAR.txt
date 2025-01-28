@@ -5,5 +5,86 @@ Se não tiver insira
 
 
 codigo1
+@app.route('/generate', methods=['POST'])
+def generate():
+    try:
+        data = request.json
+        numbers = data['numbers']
+        num_dezenas = data['combinations']
+        
+        valid_pairs = get_valid_pairs(numbers)
+        
+        # Gerar combinações de acordo com o número de dezenas solicitado
+        if 6 <= num_dezenas <= 20:  # Permitir até 20 dezenas
+            jogos = list(combinations(valid_pairs, num_dezenas))
+            
+            jogos_validos = []
+            for jogo in jogos:
+                jogo_ordenado = sorted(jogo)
+                if (len(set(jogo_ordenado)) == len(jogo_ordenado) and
+                    all(1 <= num <= 60 for num in jogo_ordenado)):
+                    jogos_validos.append([format_number(n) for n in jogo_ordenado])
+            
+            # Armazenar na sessão para download
+            session['combinations'] = jogos_validos
+            session['num_dezenas'] = num_dezenas
+            
+            return jsonify({
+                'combinations': jogos_validos,
+                'total': len(jogos_validos)
+            })
+        else:
+            return jsonify({'error': 'Número de dezenas deve estar entre 6 e 20'}), 400
+            
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+
 
 codigo2
+@app.route('/generate', methods=['POST'])
+def generate():
+    try:
+        # Adicione logs para debug
+        print("Recebendo requisição...")
+        
+        data = request.json
+        if not data:
+            return jsonify({'error': 'Dados não recebidos'}), 400
+            
+        numbers = data.get('numbers')
+        num_dezenas = data.get('combinations')
+        
+        if not numbers or not num_dezenas:
+            return jsonify({'error': 'Parâmetros incompletos'}), 400
+            
+        print(f"Números recebidos: {numbers}")
+        print(f"Quantidade de dezenas: {num_dezenas}")
+        
+        valid_pairs = get_valid_pairs(numbers)
+        print(f"Pares válidos encontrados: {valid_pairs}")
+        
+        if not (6 <= num_dezenas <= 20):
+            return jsonify({'error': 'Número de dezenas deve estar entre 6 e 20'}), 400
+            
+        jogos = list(combinations(valid_pairs, num_dezenas))
+        jogos_validos = []
+        
+        for jogo in jogos:
+            jogo_ordenado = sorted(jogo)
+            if (len(set(jogo_ordenado)) == len(jogo_ordenado) and
+                all(1 <= num <= 60 for num in jogo_ordenado)):
+                jogos_validos.append([format_number(n) for n in jogo_ordenado])
+        
+        # Armazenar na sessão
+        session['combinations'] = jogos_validos
+        session['num_dezenas'] = num_dezenas
+        
+        return jsonify({
+            'combinations': jogos_validos,
+            'total': len(jogos_validos)
+        })
+            
+    except Exception as e:
+        print(f"Erro: {str(e)}")  # Log do erro
+        return jsonify({'error': str(e)}), 400
