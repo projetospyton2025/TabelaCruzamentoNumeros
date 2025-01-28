@@ -75,3 +75,36 @@
 2025-01-28 16:37:24,747 - INFO - 127.0.0.1 - - [28/Jan/2025 16:37:24] "POST /generate HTTP/1.1" 200 -
 2025-01-28 16:38:11,282 - INFO - 127.0.0.1 - - [28/Jan/2025 16:38:11] "[35m[1mPOST /check-results HTTP/1.1[0m" 500 -
 2025-01-28 16:40:30,411 - INFO - 127.0.0.1 - - [28/Jan/2025 16:40:30] "POST /check-results HTTP/1.1" 200 -
+2025-01-28 17:10:23,882 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.11.108:10000
+2025-01-28 17:10:23,888 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 17:10:37,775 - INFO - 127.0.0.1 - - [28/Jan/2025 17:10:37] "GET / HTTP/1.1" 200 -
+2025-01-28 17:10:38,185 - INFO - 127.0.0.1 - - [28/Jan/2025 17:10:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-01-28 17:10:38,194 - INFO - 127.0.0.1 - - [28/Jan/2025 17:10:38] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-01-28 17:11:16,361 - INFO - Recebendo requisição...
+2025-01-28 17:11:16,363 - INFO - Números recebidos: [3, 1, 2, 9, 6, 4, 3, 1, 5, 7, 4, 6, 1, 0, 1]
+2025-01-28 17:11:16,364 - INFO - Quantidade de dezenas: 6
+2025-01-28 17:11:16,468 - INFO - Pares válidos encontrados: [1, 4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 23, 29, 31, 32, 34, 37, 40, 41, 43, 46, 47, 51, 59, 60]
+2025-01-28 17:11:16,469 - INFO - Limitando para 20 números devido ao grande volume
+2025-01-28 17:11:16,495 - INFO - Total de jogos gerados: 2000
+2025-01-28 17:11:16,501 - INFO - 127.0.0.1 - - [28/Jan/2025 17:11:16] "POST /generate HTTP/1.1" 200 -
+2025-01-28 17:13:38,333 - INFO - 127.0.0.1 - - [28/Jan/2025 17:13:38] "[35m[1mPOST /check-results HTTP/1.1[0m" 500 -
+2025-01-28 17:15:45,230 - INFO - 127.0.0.1 - - [28/Jan/2025 17:15:45] "POST /check-results HTTP/1.1" 200 -
+2025-01-28 17:24:51,018 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:10000
+ * Running on http://192.168.11.108:10000
+2025-01-28 17:24:51,025 - INFO - [33mPress CTRL+C to quit[0m
+2025-01-28 17:24:57,588 - INFO - 127.0.0.1 - - [28/Jan/2025 17:24:57] "GET / HTTP/1.1" 200 -
+2025-01-28 17:24:58,051 - INFO - 127.0.0.1 - - [28/Jan/2025 17:24:58] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-01-28 17:24:58,051 - INFO - 127.0.0.1 - - [28/Jan/2025 17:24:58] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-01-28 17:25:16,847 - INFO - Recebendo requisição...
+2025-01-28 17:25:16,849 - INFO - Números recebidos: [3, 1, 2, 9, 6, 4, 3, 1, 5, 7, 4, 6, 1, 0, 1]
+2025-01-28 17:25:16,851 - INFO - Quantidade de dezenas: 6
+2025-01-28 17:25:16,998 - INFO - Pares válidos encontrados: [1, 4, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 21, 23, 29, 31, 32, 34, 37, 40, 41, 43, 46, 47, 51, 59, 60]
+2025-01-28 17:25:17,000 - INFO - Limitando para 20 números devido ao grande volume
+2025-01-28 17:25:17,054 - INFO - Total de jogos gerados: 2000
+2025-01-28 17:25:17,060 - INFO - 127.0.0.1 - - [28/Jan/2025 17:25:17] "POST /generate HTTP/1.1" 200 -
+2025-01-28 17:30:32,449 - INFO - 127.0.0.1 - - [28/Jan/2025 17:30:32] "POST /check-results HTTP/1.1" 200 -

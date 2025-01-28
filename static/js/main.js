@@ -73,28 +73,7 @@ function generateGrid(numbers) {
         return numbers.sort((a, b) => a - b).join(' ');
     }
 
-// // Função para exibir as combinações (atualizada com funcionalidades do código2)
-// // Modifique a função displayCombinations:
-// function displayCombinations(combinations, numDezenas = 15) {
-//     const resultsDiv = document.getElementById('combinations-result');
-//     resultsDiv.innerHTML = `
-//         <h3>Jogos gerados com ${numDezenas} dezenas</h3>
-//         <p>Total de jogos: ${combinations.length}</p>
-//         ${combinations.length === 1000 ? '<p style="color: #f57c00;">* Limitado a 1000 jogos devido ao grande volume de combinações possíveis</p>' : ''}
-//         <div id="games-list"></div>
-//         <button id="check-results" class="btn btn-primary mt-3">Conferir Resultados</button>
-//     `;
-    
-//     const gamesList = document.getElementById('games-list');
-//     combinations.forEach((combo, index) => {
-//         gamesList.innerHTML += `
-//             <div class="combination" data-game="${combo.join(' ')}">
-//                 Jogo ${(index + 1).toString().padStart(2, '0')}: ${combo.join(' ')}
-//             </div>`;
-//     });
-//    
-//    document.getElementById('check-results').addEventListener('click', checkResults);
-// }
+
 
 function displayCombinations(data, numDezenas = 15) {
     const resultsDiv = document.getElementById('combinations-result');
@@ -122,6 +101,8 @@ function displayCombinations(data, numDezenas = 15) {
     // Função para conferir os resultados
     async function checkResults() {
         try {
+            showCheckLoading(); // Adiciona indicador de carregamento 17:20
+
             const games = Array.from(document.querySelectorAll('.combination'))
                 .map(div => div.dataset.game.split(' '));
                 
@@ -157,6 +138,8 @@ function displayCombinations(data, numDezenas = 15) {
             
         } catch (error) {
             alert(error.message);
+        } finally {
+            hideCheckLoading(); // Oculta o indicador de carregamento 17:20
         }
     }
 
@@ -260,5 +243,18 @@ function hideLoading() {
     const btn = document.getElementById('generate-btn');
     btn.disabled = false;
     btn.textContent = 'Gerar Combinações';
+}
+
+// Funções de feedback visual para o botão check-results 17:20
+function showCheckLoading() {
+    const btn = document.getElementById('check-results');
+    btn.disabled = true;
+    btn.textContent = 'Conferindo...Aguarde!';
+}
+
+function hideCheckLoading() {
+    const btn = document.getElementById('check-results');
+    btn.disabled = false;
+    btn.textContent = 'Conferir Resultados';
 }
 
