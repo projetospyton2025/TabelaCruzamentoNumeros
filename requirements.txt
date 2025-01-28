@@ -11,4 +11,4 @@ requests
 numpy==1.23.5  # Ou uma versão estável que você sabe que funciona
 # numpy --prefer-binary
 # numpy --only-binary=:all:
-
+python-dotenv
