@@ -671,3 +671,13 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.removeChild(form);
     }
 });
+
+//BOTÕES DE DOWNLOAD DESATIVADOS.. 
+//Se quiser apenas desativá-los sem esconder:
+document.querySelectorAll(".download-buttons button").forEach(btn => {
+  btn.disabled = true;
+
+});
+
+//Se quiser ocultar os botões com JavaScript:
+//document.querySelector(".download-buttons").style.display = "none";
