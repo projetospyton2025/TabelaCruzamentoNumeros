@@ -60,9 +60,14 @@ body {
 }
 
 .download-buttons {
+   /* display: flex;
+    gap: 10px;
+    margin-top: 20px;*/
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 button {
     background-color: var(--mega-sena-green);
@@ -72,6 +77,12 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    align-items: center;
+}
+/* Para garantir que outros botões individuais também fiquem centralizados */
+button {
+    margin: 0 auto;
+    display: inline-block;
 }
 /*SE ALTERAR OS BOTÕES ALTERE TBM O CHECK-RESULTS */
 
@@ -193,10 +204,16 @@ button:hover {
 }
 
 .button-group {
+    /*display: flex;
+    gap: 10px;
+    margin: 15px 0;*/
     display: flex;
     gap: 10px;
     margin: 15px 0;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
+
 .acertado {
     color: red;
     font-weight: bold;
@@ -209,4 +226,8 @@ button:hover {
 .stats-table td {
     padding: 10px;
     white-space: nowrap;
+}
+/* Para centralizar o botão de Gerar Combinações também */
+.input-section {
+    text-align: center; /* Centraliza o botão "Gerar Combinações" */
 }
