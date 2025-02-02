@@ -320,6 +320,47 @@ def check_results():
         return jsonify({'error': str(e)}), 400
     
 
+# @app.route('/get-statistics', methods=['POST'])
+# def get_statistics():
+#     try:
+#         data = request.json
+#         games = data.get('games', [])
+        
+#         # Buscar resultados da Mega-Sena
+#         response = requests.get(
+#             'https://loteriascaixa-api.herokuapp.com/api/megasena',
+#             timeout=10
+#         )
+#         response.raise_for_status()
+#         all_results = response.json()
+        
+#         # Processar estatísticas
+#         stats = []
+#         for game in games:
+#             game_numbers = set(map(int, game))
+#             for result in all_results:
+#                 drawn_numbers = set(map(int, result['dezenas']))
+#                 hits = len(game_numbers.intersection(drawn_numbers))
+                
+#                 if hits >= 5:  # Apenas jogos com 5 ou 6 acertos
+#                     stats.append({
+#                         'jogo': game,
+#                         'concurso': result['concurso'],
+#                         'acertos': hits,
+#                         'data': result['data']
+#                     })
+        
+#         # Ordenar por número de acertos (decrescente) e concurso
+#         stats.sort(key=lambda x: (-x['acertos'], -int(x['concurso'])))
+        
+#         return jsonify({
+#             'stats': stats,
+#             'total': len(stats)
+#         })
+        
+#     except Exception as e:
+#             return jsonify({'error': str(e)}), 400
+
 @app.route('/get-statistics', methods=['POST'])
 def get_statistics():
     try:
@@ -347,7 +388,8 @@ def get_statistics():
                         'jogo': game,
                         'concurso': result['concurso'],
                         'acertos': hits,
-                        'data': result['data']
+                        'data': result['data'],
+                        'numeros_sorteados': result['dezenas']  # Adicionando os números sorteados
                     })
         
         # Ordenar por número de acertos (decrescente) e concurso
@@ -359,7 +401,7 @@ def get_statistics():
         })
         
     except Exception as e:
-            return jsonify({'error': str(e)}), 400
+        return jsonify({'error': str(e)}), 400
 
 """
 if __name__ == '__main__':

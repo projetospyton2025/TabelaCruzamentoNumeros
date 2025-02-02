@@ -469,6 +469,35 @@ document.addEventListener('DOMContentLoaded', function() {
             .join('');
     }
 
+    // function displayStatistics(data) {
+    //     const statsDiv = document.getElementById('stats-result');
+    //     statsDiv.innerHTML = `
+    //         <div class="statistics-container">
+    //             <h3>Estatísticas de Acertos</h3>
+    //             <div class="stats-table">
+    //                 <table>
+    //                     <thead>
+    //                         <tr>
+    //                             <th>Jogo</th>
+    //                             <th>Concurso</th>
+    //                             <th>Acertos</th>
+    //                         </tr>
+    //                     </thead>
+    //                     <tbody>
+    //                         ${data.stats.map(stat => `
+    //                             <tr>
+    //                                 <td>${stat.jogo.join(' ')}</td>
+    //                                 <td>${stat.concurso}</td>
+    //                                 <td>${stat.acertos}</td>
+    //                             </tr>
+    //                         `).join('')}
+    //                     </tbody>
+    //                 </table>
+    //             </div>
+    //         </div>
+    //     `;
+    // }
+
     function displayStatistics(data) {
         const statsDiv = document.getElementById('stats-result');
         statsDiv.innerHTML = `
@@ -479,18 +508,34 @@ document.addEventListener('DOMContentLoaded', function() {
                         <thead>
                             <tr>
                                 <th>Jogo</th>
+                                <th>Números Sorteados</th>
                                 <th>Concurso</th>
                                 <th>Acertos</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${data.stats.map(stat => `
-                                <tr>
-                                    <td>${stat.jogo.join(' ')}</td>
-                                    <td>${stat.concurso}</td>
-                                    <td>${stat.acertos}</td>
-                                </tr>
-                            `).join('')}
+                            ${data.stats.map(stat => {
+                                // Converte os números do jogo e os sorteados para conjuntos para fácil comparação
+                                const jogoNums = new Set(stat.jogo.map(n => parseInt(n)));
+                                const sorteados = new Set(stat.numeros_sorteados.map(n => parseInt(n)));
+                                
+                                // Cria o HTML para o jogo, destacando os números acertados
+                                const jogoHTML = stat.numeros_sorteados.map(num => {
+                                    const n = parseInt(num);
+                                    return jogoNums.has(n) 
+                                        ? `<span class="acertado">${num.padStart(2, '0')}</span>` 
+                                        : `<span>${num.padStart(2, '0')}</span>`;
+                                }).join(' ');
+                                
+                                return `
+                                    <tr>
+                                        <td>${stat.jogo.map(n => n.padStart(2, '0')).join(' ')}</td>
+                                        <td>${jogoHTML}</td>
+                                        <td>${stat.concurso}</td>
+                                        <td>${stat.acertos}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
                         </tbody>
                     </table>
                 </div>
