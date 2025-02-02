@@ -1,42 +1,877 @@
-3 1 2 9 
-6 4 3 1 
-5 7 4 6 
-1 0 1
-
-2820
-06 15 19 25 32 42
+ Diretório: H:\Meu Drive\ProjetosPython\Loterias\Estrategias\TabelaCruzamentoNumeros
 
 
-
----TIRAR ESTAS INFORMACOES
-Combinações Geradas
-Pares Válidos Encontrados:
-59, 4, 1, 21, 6, 23, 41, 60, 37, 47, 40, 17, 43, 19, 32, 14, 10, 16, 46, 29
-
-
----DAR MOVIMENTO
-no botão "Conferir Resultados" igual aos outros...
-Ainda no mesmo botão fazer ele alterar quando clicado tipo Conferindo...Aguarde igual ao "Gerar Combinações"
-
-
----VER A POSSIBILIDADE DE ESPANDIR A CONSTRUÇÃO DE DEZENAS TIPO 32, 42
-
----TRATAR DOWNLOD DOS BOTÕES
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----        02/02/2025     12:55                Requisitos
+d-----        02/02/2025     12:55                __pycache__
+d-----        02/02/2025     12:55                static
+d-----        02/02/2025     13:04                templates
+------        02/02/2025     12:55              0 .env
+------        02/02/2025     12:55              5 .gitignore
+------        02/02/2025     12:55           1096 LICENSE
+------        02/02/2025     12:55             25 README.md
+------        02/02/2025     12:55         455123 TabelaCruzamentoNumeros-main-V1.zip
+------        02/02/2025     12:55         450371 TabelaCruzamentoNumeros-main-V2.zip
+------        02/02/2025     12:55           1663 TabelaCruzamentoNumeros.ps1
+------        02/02/2025     12:55           9658 app.log
+------        02/02/2025     13:05          13288 app.py
+------        02/02/2025     12:55            312 requirements.txt
 
 
 
+flask
+# flask==2.0.1
+# Flask>=2.2
+pandas==1.5.3
+# pandas==1.3.3 --only-binary=:all:
+#pandas>=1.3.3,<2.0.0
+openpyxl==3.0.9
+werkzeug<2.1
+requests
+# numpy==1.21.6
+numpy==1.23.5  # Ou uma versão estável que você sabe que funciona
+# numpy --prefer-binary
+# numpy --only-binary=:all:
+python-dotenv
 
----ESTATISTICA
-Criar uma estatistica para trazer uma tabel com as informações de 5 e 6 acertos (destacar as dezenas sorteadas)
-Jogo nº , Dezenas Jogo , Concurso, Nº de Acertos
+
+ 
+# pip install flask pandas==1.5.3 openpyxl==3.0.9 werkzeug<2.1 requests numpy==1.23.5 python-dotenv
+
+
+
+
+# Adicione esta importação no topo do arquivo
+from flask import Flask, render_template, request, jsonify, send_file, session  # Adicionado session
+import pandas as pd
+import requests
+import io
+import json
+from itertools import combinations
+import os
+from dotenv import load_dotenv
+import logging  # Adicionado para o logging
+
+
+
+# E adicione esta configuração após criar a app
+app = Flask(__name__)
+app.secret_key = 'sua_chave_secreta_aqui'  # Necessário para usar session
+
+
+logging.basicConfig(
+    level=logging.INFO,  # Define o nível mínimo de mensagens (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(levelname)s - %(message)s',  # Formato das mensagens
+    handlers=[
+        logging.FileHandler("app.log"),  # Salva os logs em um arquivo
+        logging.StreamHandler()         # Exibe os logs no console
+    ]
+)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+def format_number(num):
+    """Formata número para ter sempre 2 dígitos"""
+    return f"{num:02d}"
+
+def combine_digits(a, b):
+    """Combina dois dígitos para formar um número"""
+    return int(f"{a}{b}")
+
+
+
+# Gerando os números da grid triângulo
+def get_valid_pairs(grid):
+    valid_pairs = set()
+    rows = [
+        grid[0:5],    # primeira linha (código1)
+        grid[5:9],    # segunda linha (código1)
+        grid[9:12],   # terceira linha (código1)
+        grid[12:14],  # quarta linha (código1)
+        grid[14:15]   # quinta linha (código1)
+    ]
+    
+    # Função auxiliar para validar e adicionar números
+    def add_valid_number(num):
+        if 1 <= num <= 60:
+            valid_pairs.add(num)
+    
+    # 1. Horizontal (esquerda para direita e direita para esquerda)
+    for row in rows:
+        for i in range(len(row)-1):
+            add_valid_number(combine_digits(row[i], row[i+1]))
+            add_valid_number(combine_digits(row[i+1], row[i]))
+
+    # 2. Diagonal (superior esquerda para inferior direita) e Diagonal (superior direita para inferior esquerda)
+    for i in range(len(rows)-1):
+        current_row = rows[i]
+        next_row = rows[i+1]
+        for j in range(min(len(current_row), len(next_row))):  # Ajustado para lidar com limites das linhas
+            # Diagonal direita
+            add_valid_number(combine_digits(current_row[j], next_row[j]))
+            add_valid_number(combine_digits(next_row[j], current_row[j]))
+            
+            # Diagonal esquerda (código2)
+            if j > 0:
+                add_valid_number(combine_digits(current_row[j], next_row[j-1]))
+                add_valid_number(combine_digits(next_row[j-1], current_row[j]))
+
+    # 3. Vertical (código1) - Colocando a verificação das colunas
+    col_positions = [
+        [(0,0), (1,0), (2,0), (3,0), (4,0)],  # primeira coluna (código1)
+        [(0,1), (1,1), (2,1), (3,1)],         # segunda coluna (código1)
+        [(0,2), (1,2), (2,2)],                # terceira coluna (código1)
+        [(0,3), (1,3)],                       # quarta coluna (código1)
+        [(0,4)]                               # quinta coluna (código1)
+    ]
+    
+    for col in col_positions:
+        for i in range(len(col)-1):
+            row1, pos1 = col[i]
+            row2, pos2 = col[i+1]
+            if pos1 < len(rows[row1]) and pos2 < len(rows[row2]):
+                add_valid_number(combine_digits(rows[row1][pos1], rows[row2][pos2]))
+                add_valid_number(combine_digits(rows[row2][pos2], rows[row1][pos1]))
+
+    # 4. Tratamento especial para zero (código1) 
+    for i, row in enumerate(rows):
+        for j, num in enumerate(row):
+            if num == 0:
+                # Verificar números adjacentes (horizontal, vertical e diagonal)
+                adjacent_positions = [
+                    (i, j-1), (i, j+1),  # horizontal
+                    (i-1, j), (i+1, j),  # vertical
+                    (i-1, j-1), (i-1, j+1),  # diagonal superior
+                    (i+1, j-1), (i+1, j+1)   # diagonal inferior
+                ]
+                
+                for adj_i, adj_j in adjacent_positions:
+                    if (0 <= adj_i < len(rows) and 
+                        0 <= adj_j < len(rows[adj_i])):
+                        adj_num = rows[adj_i][adj_j]
+                        # Zero à esquerda (06)
+                        add_valid_number(combine_digits(0, adj_num))
+                        # Zero à direita (60)
+                        add_valid_number(combine_digits(adj_num, 0))
+
+    # 5. Tratamento especial para zero (código2)
+    for i, num in enumerate(grid):
+        if num == 0:
+            # Verifica números adjacentes na horizontal (código2)
+            if i > 0:
+                add_valid_number(grid[i-1])
+            if i < len(grid) - 1:
+                add_valid_number(grid[i+1])
+
+    return sorted(list(valid_pairs))
+
+
+
+@app.route('/generate', methods=['POST'])
+def generate():
+    try:
+        logging.info("Recebendo requisição...")
+        
+        # Recebendo os dados da requisição
+        data = request.json
+        if not data:
+            return jsonify({'error': 'Dados não recebidos'}), 400
+            
+        # Obtendo os parâmetros necessários
+        numbers = data.get('numbers')
+        num_dezenas = data.get('combinations')
+        
+        if not numbers or not num_dezenas:
+            return jsonify({'error': 'Parâmetros incompletos'}), 400
+            
+        logging.info(f"Números recebidos: {numbers}")
+        logging.info(f"Quantidade de dezenas: {num_dezenas}")
+        
+        # Validando e processando pares válidos
+        valid_pairs = get_valid_pairs(numbers)
+        
+        # Adicione esta linha aqui ↓
+        logging.info("Pares válidos sendo enviados:", valid_pairs)  # Novo log
+        logging.info(f"Pares válidos encontrados: {valid_pairs}")
+        
+        # Verificando o intervalo válido para o número de dezenas
+        if not (6 <= num_dezenas <= 20): # Ajustável conforme necessário
+            return jsonify({'error': 'Número de dezenas deve estar entre 6 e 20'}), 400
+        
+        # Calculando o total de combinações possíveis
+        from math import comb
+        total_possible = comb(len(valid_pairs), num_dezenas)
+        
+        # Limitar o número máximo de combinações
+        MAX_COMBINATIONS = 2000  # Ajustável conforme necessário
+        
+        if total_possible > MAX_COMBINATIONS:
+            # Amostragem aleatória se o número de combinações for muito grande
+            import random
+            valid_pairs = random.sample(valid_pairs, min(len(valid_pairs), 20))
+            logging.info(f"Limitando para {len(valid_pairs)} números devido ao grande volume")
+        
+        # Gerando combinações de jogos
+        from itertools import combinations
+        jogos = list(combinations(valid_pairs, num_dezenas))
+        
+        # Limitar o número de jogos gerados
+        if len(jogos) > MAX_COMBINATIONS:
+            jogos = random.sample(jogos, MAX_COMBINATIONS)
+        
+        # Filtrar e formatar jogos válidos
+        jogos_validos = []
+        for jogo in jogos:
+            jogo_ordenado = sorted(jogo)
+            if (len(set(jogo_ordenado)) == len(jogo_ordenado) and
+                all(1 <= num <= 60 for num in jogo_ordenado)):
+                jogos_validos.append([format_number(n) for n in jogo_ordenado])
+        
+        logging.info(f"Total de jogos gerados: {len(jogos_validos)}")
+        
+        # Retornando a resposta com os jogos válidos e os pares válidos (INSTRUÇÃO DO CÓDIGO2)
+        return jsonify({
+            'combinations': jogos_validos,
+            'total': len(jogos_validos),
+            'valid_pairs': valid_pairs  # Adicionando os pares válidos à resposta
+        })
+            
+    except Exception as e:
+        # Tratamento de exceções
+        logging.info(f"Erro: {str(e)}")
+        return jsonify({'error': str(e)}), 400
 
 
 
 
 
-Gerando...Aguarde!
-Gerar Combinações
+@app.route('/download/<format>', methods=['POST'])
+def download(format):
+    try:
+        data = request.json
+        combinations = data.get('combinations', [])
+        num_dezenas = data.get('num_dezenas', 6)
+        
+        if format == 'txt':
+            output = io.StringIO()
+            output.write(f"Jogos gerados com {num_dezenas} dezenas\n")
+            output.write(f"Total de jogos: {len(combinations)}\n\n")
+            
+            for i, combo in enumerate(combinations, 1):
+                output.write(f"Jogo {i}: {' '.join(combo)}\n")
+                
+            output.seek(0)
+            return send_file(
+                io.BytesIO(output.getvalue().encode('utf-8')),
+                mimetype='text/plain',
+                as_attachment=True,
+                download_name='jogos_mega_sena.txt'
+            )
+            
+        elif format == 'xlsx':
+            df = pd.DataFrame(combinations)
+            df.index = [f"Jogo {i+1}" for i in range(len(df))]
+            df.columns = [f"Número {i+1}" for i in range(len(df.columns))]
+            
+            output = io.BytesIO()
+            with pd.ExcelWriter(output, engine='openpyxl') as writer:
+                df.to_excel(writer, sheet_name=f'Jogos {num_dezenas} dezenas')
+                
+            output.seek(0)
+            return send_file(
+                output,
+                mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                as_attachment=True,
+                download_name='jogos_mega_sena.xlsx'
+            )
+            
+        elif format == 'html':
+            html_content = f"""
+            <html>
+            <head>
+                <title>Jogos Mega Sena</title>
+                <style>
+                    table {{ border-collapse: collapse; width: 100%; }}
+                    th, td {{ border: 1px solid black; padding: 8px; text-align: center; }}
+                    th {{ background-color: #209869; color: white; }}
+                </style>
+            </head>
+            <body>
+                <h2>Jogos gerados com {num_dezenas} dezenas</h2>
+                <p>Total de jogos: {len(combinations)}</p>
+                <table>
+                    <tr>
+                        <th>Jogo</th>
+                        {''.join(f'<th>Número {i+1}</th>' for i in range(num_dezenas))}
+                    </tr>
+                    {''.join(f'<tr><td>Jogo {i+1}</td>{"".join(f"<td>{n}</td>" for n in combo)}</tr>' for i, combo in enumerate(combinations))}
+                </table>
+            </body>
+            </html>
+            """
+            
+            return send_file(
+                io.BytesIO(html_content.encode()),
+                mimetype='text/html',
+                as_attachment=True,
+                download_name='jogos_mega_sena.html'
+            )
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 
-Conferindo...Aguarde!
-Conferir Resultados
+@app.route('/check-results', methods=['POST'])
+def check_results():
+    try:
+        data = request.json
+        generated_games = data['games']
+        
+        # Buscar todos os resultados da Mega-Sena com timeout e tratamento de erro
+        try:
+            response = requests.get(
+                'https://loteriascaixa-api.herokuapp.com/api/megasena',
+                timeout=10
+            )
+            response.raise_for_status()  # Levanta exceção para códigos de erro HTTP
+            all_results = response.json()
+        except requests.exceptions.RequestException as e:
+            return jsonify({'error': f'Erro ao acessar API da loteria: {str(e)}'}), 500
+
+        # Conferir jogos
+        results = []
+        for game in generated_games:
+            matches = []
+            for result in all_results:
+                numbers = set(map(int, game))
+                drawn_numbers = set(map(int, result['dezenas']))
+                hits = len(numbers.intersection(drawn_numbers))
+                if hits >= 4:  # Registrar apenas 4+ acertos
+                    matches.append({
+                        'concurso': result['concurso'],
+                        'data': result['data'],
+                        'acertos': hits,
+                        'numeros_sorteados': result['dezenas']
+                    })
+            if matches:
+                results.append({
+                    'jogo': game,
+                    'resultados': sorted(matches, key=lambda x: x['acertos'], reverse=True)
+                })
+        
+        return jsonify({
+            'results': sorted(results, key=lambda x: max(r['acertos'] for r in x['resultados']), reverse=True)
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+
+"""
+if __name__ == '__main__':
+    app.run(debug=True)  # Corrigido o espaçamento
+"""
+
+# Carrega as variáveis do arquivo .env
+load_dotenv()
+
+# Configuração da porta
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))  # Obtém a porta do ambiente ou usa 5000 como padrão
+    app.run(host="0.0.0.0", port=port)  # Inicia o servidor Flask na porta correta
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Gerar campos de input com validação
+    const inputSection = document.querySelector('.number-inputs');
+    for (let i = 0; i < 15; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';  // Mudado para text para melhor controle
+        input.pattern = '[0-9]';  // Aceita apenas um dígito de 0-9
+        input.required = true;
+        input.maxLength = 1;
+        input.addEventListener('input', function(e) {
+            let value = e.target.value;
+            // Permitir apenas dígitos de 0-9
+            if (!/^[0-9]$/.test(value)) {
+                // Se o valor não for um único dígito entre 0-9, pega apenas o último dígito inserido
+                value = value.replace(/[^0-9]/g, '').slice(-1);
+            }
+            e.target.value = value;
+            
+            // Auto-avançar para o próximo campo quando um dígito é inserido
+            if (value && this.nextElementSibling && this.nextElementSibling.tagName === 'INPUT') {
+                this.nextElementSibling.focus();
+            }
+        });
+        inputSection.appendChild(input);
+    }
+
+
+
+// No arquivo main.js, atualize a função generateGrid:
+function generateGrid(numbers) {
+    const grid = document.querySelector('.triangle-grid');
+    grid.innerHTML = '';
+    
+    const rows = [5, 4, 3, 2, 1];
+    let numberIndex = 0;
+    
+    rows.forEach((cellCount) => {
+        const row = document.createElement('div');
+        row.className = 'grid-row';
+        row.style.justifyContent = 'center';  // Centraliza as células
+        row.style.display = 'flex';  // Garante que as células fiquem em linha
+        row.style.gap = '10px';  // Espaço entre as células
+        row.style.margin = '5px 0';  // Espaço entre as linhas
+        
+        for (let i = 0; i < cellCount; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'grid-cell';
+            // Garante que o zero seja exibido
+            const value = numbers[numberIndex];
+            cell.textContent = (value !== undefined && value !== null) ? value.toString() : '';
+            // Adiciona estilos para a célula circular
+            cell.style.width = '40px';
+            cell.style.height = '40px';
+            cell.style.borderRadius = '50%';
+            cell.style.border = '2px solid #209869';  // Cor verde da Mega Sena
+            cell.style.display = 'flex';
+            cell.style.alignItems = 'center';
+            cell.style.justifyContent = 'center';
+            cell.style.backgroundColor = 'white';
+            cell.style.fontSize = '16px';
+            
+            row.appendChild(cell);
+            numberIndex++;
+        }
+        
+        grid.appendChild(row);
+    });
+}
+
+    
+    // Função para formatar o jogo (ordenar em ordem crescente)
+    function formatGame(numbers) {
+        return numbers.sort((a, b) => a - b).join(' ');
+    }
+
+
+
+function displayCombinations(data, numDezenas = 15) {
+    const resultsDiv = document.getElementById('combinations-result');
+    resultsDiv.innerHTML = `
+        <div class="valid-pairs">
+            <h3>Pares Válidos Encontrados:</h3>
+            <p>${data.valid_pairs.join(', ')}</p>
+        </div>
+        <h3>Jogos gerados com ${numDezenas} dezenas (Total: ${data.combinations.length} jogos)</h3>
+        <div id="games-list"></div>
+        <button id="check-results" class="btn btn-primary mt-3">Conferir Resultados</button>
+    `;
+    
+    const gamesList = document.getElementById('games-list');
+    data.combinations.forEach((combo, index) => {
+        gamesList.innerHTML += `
+            <div class="combination" data-game="${combo.join(' ')}">
+                Jogo ${(index + 1).toString().padStart(2, '0')}: ${combo.join(' ')}
+            </div>`;
+    });
+    
+    document.getElementById('check-results').addEventListener('click', checkResults);
+}
+
+    // Função para conferir os resultados
+    async function checkResults() {
+        try {
+            showCheckLoading(); // Adiciona indicador de carregamento 17:20
+
+            const games = Array.from(document.querySelectorAll('.combination'))
+                .map(div => div.dataset.game.split(' '));
+                
+            const response = await fetch('/check-results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ games })
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.error || 'Erro ao conferir resultados');
+            }
+            
+            // Destacar jogos com acertos
+            data.results.forEach(result => {
+                const gameDiv = Array.from(document.querySelectorAll('.combination'))
+                    .find(div => div.dataset.game === result.jogo.join(' '));
+                    
+                if (gameDiv) {
+                    gameDiv.classList.add('has-hits');
+                    gameDiv.innerHTML += `
+                        <div class="hits-info">
+                            ${result.resultados.map(r => 
+                                `<div>Concurso ${r.concurso}: ${r.acertos} acertos</div>`
+                            ).join('')}
+                        </div>`;
+                }
+            });
+            
+        } catch (error) {
+            alert(error.message);
+        } finally {
+            hideCheckLoading(); // Oculta o indicador de carregamento 17:20
+        }
+    }
+
+// Event listener para o botão "generate"
+document.getElementById('generate-btn').addEventListener('click', async function () {
+    try {
+        showLoading(); // Mostra o indicador de carregamento
+        
+        // Obtém os números inseridos
+        const inputs = document.querySelectorAll('.number-inputs input');
+        const numbers = Array.from(inputs).map(input => parseInt(input.value));
+        
+        if (numbers.some(isNaN)) {
+            alert('Por favor, preencha todos os números.');
+            return;
+        }
+        
+        // Obtém a quantidade de combinações
+        const numCombinations = parseInt(document.getElementById('num-combinations').value);
+        
+        // Faz a requisição ao backend
+        const response = await fetch('/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                numbers: numbers,
+                combinations: numCombinations
+            })
+        });
+
+        // Trata os erros da requisição
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Erro ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+
+        // Adicione estas duas linhas aqui ↓
+        console.log("Números enviados ao backend:", numbers);  // Novo log
+        console.log("Pares válidos recebidos do backend:", data.valid_pairs);  // Novo log
+
+        
+        // Gera o grid triangular com os números
+        generateGrid(numbers);
+        
+        // Exibe os pares válidos (ADICIONADO DO CÓDIGO2)
+        displayValidPairs(data.valid_pairs);
+        
+        // Exibe as combinações geradas
+        //displayCombinations(data.combinations, numCombinations);
+        displayCombinations(data, numCombinations);
+
+        
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao gerar combinações: ' + error.message);
+    } finally {
+        hideLoading(); // Oculta o indicador de carregamento
+    }
+});
+
+// Função para exibir os pares válidos (ADICIONADO DO CÓDIGO2)
+function displayValidPairs(validPairs) {
+    const validPairsDiv = document.getElementById('valid_pairs');
+    validPairsDiv.innerHTML = validPairs
+        .map(num => `<span class="valid-pair">${String(num).padStart(2, '0')}</span>`)
+        .join('');
+}
+
+
+    // Para corrigir os downloads, adicione o handler correto no JavaScript:
+    function downloadResults(format) {
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = `/download/${format}`;
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    // Adicione os event listeners para os botões
+    document.getElementById('download-txt').addEventListener('click', () => downloadResults('txt'));
+    document.getElementById('download-html').addEventListener('click', () => downloadResults('html'));
+    document.getElementById('download-excel').addEventListener('click', () => downloadResults('xlsx'));
+
+});
+
+//Feedback visual:
+function showLoading() {
+    const btn = document.getElementById('generate-btn');
+    btn.disabled = true;
+    btn.textContent = 'Gerando...Aguarde!';
+}
+
+function hideLoading() {
+    const btn = document.getElementById('generate-btn');
+    btn.disabled = false;
+    btn.textContent = 'Gerar Combinações';
+}
+
+// Funções de feedback visual para o botão check-results 17:20
+function showCheckLoading() {
+    const btn = document.getElementById('check-results');
+    btn.disabled = true;
+    btn.textContent = 'Conferindo...Aguarde!';
+}
+
+function hideCheckLoading() {
+    const btn = document.getElementById('check-results');
+    btn.disabled = false;
+    btn.textContent = 'Conferir Resultados';
+}
+
+/*# CSS Styles (static/css/style.css):*/
+
+:root {
+    --mega-sena-green: #209869;
+    --mega-sena-light: #e8f5e9;
+}
+h2 {
+    color: var(--mega-sena-green);
+    margin-bottom: 1rem;
+}
+h1{
+    color: var(--mega-sena-green);
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.triangle-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e8f5e9;  /* Fundo verde claro */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.grid-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.grid-cell {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #209869;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    font-size: 16px;
+}
+
+.download-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    background-color: var(--mega-sena-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1b7d56;
+}
+.combination {
+    padding: 10px;
+    margin: 5px 0;
+    background: var(--mega-sena-light);
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+.number-inputs input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    margin: 2px;
+    border: 2px solid var(--mega-sena-green);
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.results-section h3 {
+    color: var(--mega-sena-green);
+    margin: 20px 0;
+}
+.has-hits {
+    background-color: #90EE90;
+}
+
+.hits-info {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+#check-results {
+    background-color: var(--mega-sena-green);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.valid-pairs-section {
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    background-color: var(--mega-sena-light);
+    border-radius: 8px;
+}
+
+.valid-pairs-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.valid-pair {
+    background-color: white;
+    border: 2px solid var(--mega-sena-green);
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: monospace;
+    font-size: 16px;
+    min-width: 30px;
+    text-align: center;
+}
+.instrucaoes{
+    background-color: #f9f9f9; /* Fundo cinza claro */
+    border-radius: 12px; /* Bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    padding: 20px; /* Espaçamento interno */
+    text-align: left; /* Centraliza o texto */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    color: #333; /* Cor do texto */
+    line-height: 35px;
+}
+.red {
+    color: red;
+}
+
+<!--# HTML Template (templates/index.html):-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela Cruzamento Números - Mega Sena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Tabela de Cruzamento de Números</h1>
+
+        <div class="instrucaoes">
+            <h2>Instruções de uso:</h2>
+            <ol>
+                <li>Digite 15 números (<small>de 0 a 9</small>)</li>
+                <li>Escolha quantas combinações quer gerar <small>(de 6 a 20 dezenas)</small></li>
+                <li>Clique em <span class="red">Gerar Combinações</span>, será gerada a tabela "Cruzamentos de Númeross", em forma de triângulo.</li>
+                <li>Logo abaixo você poderá clicar em <span class="red">Conferir Resultados</span> para ver se as sequências geradas foram sorteadas um dia.</li>
+                <li>Os pares válidos encontrados vem do Triangulo <span class="red">(Cruzamentos de Números)</span> limitados a 20 números.</li>
+                <li>Editar</li>
+                <li>Escolha uma combinação para apostar. Boa Sorte!</li>
+            </ol>
+        </div><br />
+
+
+
+        
+        <div class="input-section">
+            <h2>Digite 15 números (0-9):</h2>
+            <div class="number-inputs">
+                <!-- JavaScript will generate input fields -->
+            </div><br />
+            
+            <div class="combinations-input">
+                <label for="num-combinations">Número de combinações:</label>
+                <input type="number" id="num-combinations" min="6" max="20" value="6">
+            </div><br />
+            
+            <button id="generate-btn">Gerar Combinações</button>
+        </div>
+
+        <div class="triangle-grid">
+            <!-- JavaScript will generate the grid -->
+             <p></p>
+        </div>
+
+        <!-- Novo elemento para exibir os pares válidos -->
+        <div class="valid-pairs-section">
+            <h2>Pares Válidos Encontrados <small>(Limitado para 20 apenas)</small></h2>
+            <div id="valid_pairs" class="valid-pairs-container"></div>
+        </div>
+
+
+
+        <div class="results-section">
+            <h2>Combinações Geradas</h2>
+            <div id="combinations-result"></div>
+            
+            <div class="download-buttons">
+                <button onclick="downloadResults('txt')">Download TXT</button>
+                <button onclick="downloadResults('html')">Download HTML</button>
+                <button onclick="downloadResults('xlsx')">Download Excel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+

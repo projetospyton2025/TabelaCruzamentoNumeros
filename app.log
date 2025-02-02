@@ -108,3 +108,186 @@
 2025-01-28 17:25:17,054 - INFO - Total de jogos gerados: 2000
 2025-01-28 17:25:17,060 - INFO - 127.0.0.1 - - [28/Jan/2025 17:25:17] "POST /generate HTTP/1.1" 200 -
 2025-01-28 17:30:32,449 - INFO - 127.0.0.1 - - [28/Jan/2025 17:30:32] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 14:07:28,123 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 14:07:28,132 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 14:07:34,283 - INFO - 10.0.0.127 - - [02/Feb/2025 14:07:34] "GET / HTTP/1.1" 200 -
+2025-02-02 14:07:34,891 - INFO - 10.0.0.127 - - [02/Feb/2025 14:07:34] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-02 14:07:35,029 - INFO - 10.0.0.127 - - [02/Feb/2025 14:07:35] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-02-02 14:07:49,153 - INFO - Recebendo requisição...
+2025-02-02 14:07:49,156 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:07:49,157 - INFO - Quantidade de dezenas: 20
+2025-02-02 14:07:49,158 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:07:49,411 - ERROR - Erro: cannot access local variable 'random' where it is not associated with a value
+2025-02-02 14:07:49,414 - INFO - 10.0.0.127 - - [02/Feb/2025 14:07:49] "[31m[1mPOST /generate HTTP/1.1[0m" 400 -
+2025-02-02 14:10:26,602 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 14:10:26,613 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 14:10:33,256 - INFO - 10.0.0.127 - - [02/Feb/2025 14:10:33] "GET / HTTP/1.1" 200 -
+2025-02-02 14:10:34,074 - INFO - 10.0.0.127 - - [02/Feb/2025 14:10:34] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-02 14:10:34,081 - INFO - 10.0.0.127 - - [02/Feb/2025 14:10:34] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-02-02 14:10:50,777 - INFO - Recebendo requisição...
+2025-02-02 14:10:50,779 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:10:50,780 - INFO - Quantidade de dezenas: 15
+2025-02-02 14:10:50,781 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:10:52,045 - INFO - Total de jogos gerados: 666
+2025-02-02 14:10:52,105 - INFO - 10.0.0.127 - - [02/Feb/2025 14:10:52] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:11:48,313 - INFO - Recebendo requisição...
+2025-02-02 14:11:48,315 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:11:48,316 - INFO - Quantidade de dezenas: 6
+2025-02-02 14:11:48,317 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:11:48,378 - INFO - Total de jogos gerados: 1666
+2025-02-02 14:11:48,383 - INFO - 10.0.0.127 - - [02/Feb/2025 14:11:48] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:12:21,328 - INFO - Recebendo requisição...
+2025-02-02 14:12:21,330 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:12:21,331 - INFO - Quantidade de dezenas: 7
+2025-02-02 14:12:21,332 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:12:21,474 - INFO - Total de jogos gerados: 1428
+2025-02-02 14:12:21,483 - INFO - 10.0.0.127 - - [02/Feb/2025 14:12:21] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:12:56,874 - INFO - Recebendo requisição...
+2025-02-02 14:12:56,876 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:12:56,877 - INFO - Quantidade de dezenas: 8
+2025-02-02 14:12:56,878 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:12:57,166 - INFO - Total de jogos gerados: 1250
+2025-02-02 14:12:57,189 - INFO - 10.0.0.127 - - [02/Feb/2025 14:12:57] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:13:16,800 - INFO - Recebendo requisição...
+2025-02-02 14:13:16,801 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:13:16,804 - INFO - Quantidade de dezenas: 9
+2025-02-02 14:13:16,806 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:13:17,383 - INFO - Total de jogos gerados: 1111
+2025-02-02 14:13:17,438 - INFO - 10.0.0.127 - - [02/Feb/2025 14:13:17] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:13:30,321 - INFO - Recebendo requisição...
+2025-02-02 14:13:30,323 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:13:30,324 - INFO - Quantidade de dezenas: 10
+2025-02-02 14:13:30,326 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:13:31,411 - INFO - Total de jogos gerados: 1000
+2025-02-02 14:13:31,483 - INFO - 10.0.0.127 - - [02/Feb/2025 14:13:31] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:13:56,961 - INFO - Recebendo requisição...
+2025-02-02 14:13:56,963 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:13:56,964 - INFO - Quantidade de dezenas: 11
+2025-02-02 14:13:56,966 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:13:58,447 - INFO - Total de jogos gerados: 909
+2025-02-02 14:13:58,539 - INFO - 10.0.0.127 - - [02/Feb/2025 14:13:58] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:14:06,896 - INFO - Recebendo requisição...
+2025-02-02 14:14:06,898 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:14:06,899 - INFO - Quantidade de dezenas: 12
+2025-02-02 14:14:06,902 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:14:08,831 - INFO - Total de jogos gerados: 833
+2025-02-02 14:14:08,909 - INFO - 10.0.0.127 - - [02/Feb/2025 14:14:08] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:14:17,814 - INFO - Recebendo requisição...
+2025-02-02 14:14:17,815 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:14:17,818 - INFO - Quantidade de dezenas: 13
+2025-02-02 14:14:17,820 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:14:19,735 - INFO - Total de jogos gerados: 769
+2025-02-02 14:14:19,818 - INFO - 10.0.0.127 - - [02/Feb/2025 14:14:19] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:14:49,928 - INFO - Recebendo requisição...
+2025-02-02 14:14:49,930 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:14:49,931 - INFO - Quantidade de dezenas: 14
+2025-02-02 14:14:49,934 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:14:51,655 - INFO - Total de jogos gerados: 714
+2025-02-02 14:14:51,736 - INFO - 10.0.0.127 - - [02/Feb/2025 14:14:51] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:14:59,400 - INFO - Recebendo requisição...
+2025-02-02 14:14:59,402 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:14:59,404 - INFO - Quantidade de dezenas: 15
+2025-02-02 14:14:59,405 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:15:00,713 - INFO - Total de jogos gerados: 666
+2025-02-02 14:15:00,774 - INFO - 10.0.0.127 - - [02/Feb/2025 14:15:00] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:15:15,737 - INFO - Recebendo requisição...
+2025-02-02 14:15:15,738 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:15:15,739 - INFO - Quantidade de dezenas: 16
+2025-02-02 14:15:15,741 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:15:16,610 - INFO - Total de jogos gerados: 625
+2025-02-02 14:15:16,659 - INFO - 10.0.0.127 - - [02/Feb/2025 14:15:16] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:15:32,824 - INFO - Recebendo requisição...
+2025-02-02 14:15:32,825 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:15:32,826 - INFO - Quantidade de dezenas: 17
+2025-02-02 14:15:32,827 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:15:33,249 - INFO - Total de jogos gerados: 588
+2025-02-02 14:15:33,276 - INFO - 10.0.0.127 - - [02/Feb/2025 14:15:33] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:15:43,040 - INFO - Recebendo requisição...
+2025-02-02 14:15:43,041 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:15:43,043 - INFO - Quantidade de dezenas: 18
+2025-02-02 14:15:43,044 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:15:43,257 - INFO - Total de jogos gerados: 555
+2025-02-02 14:15:43,270 - INFO - 10.0.0.127 - - [02/Feb/2025 14:15:43] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:15:52,905 - INFO - Recebendo requisição...
+2025-02-02 14:15:52,907 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:15:52,909 - INFO - Quantidade de dezenas: 19
+2025-02-02 14:15:52,911 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:15:53,088 - INFO - Total de jogos gerados: 526
+2025-02-02 14:15:53,097 - INFO - 10.0.0.127 - - [02/Feb/2025 14:15:53] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:16:14,543 - INFO - Recebendo requisição...
+2025-02-02 14:16:14,547 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 4, 5, 8, 9]
+2025-02-02 14:16:14,549 - INFO - Quantidade de dezenas: 20
+2025-02-02 14:16:14,550 - INFO - Pares válidos encontrados: [12, 15, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 42, 43, 45, 48, 49, 51, 52, 54, 58, 59]
+2025-02-02 14:16:14,591 - INFO - Total de jogos gerados: 500
+2025-02-02 14:16:14,597 - INFO - 10.0.0.127 - - [02/Feb/2025 14:16:14] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:20:38,436 - INFO - 10.0.0.127 - - [02/Feb/2025 14:20:38] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 14:32:58,839 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 14:32:58,844 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 14:33:23,622 - INFO - 10.0.0.127 - - [02/Feb/2025 14:33:23] "GET / HTTP/1.1" 200 -
+2025-02-02 14:33:24,143 - INFO - 10.0.0.127 - - [02/Feb/2025 14:33:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-02 14:33:24,155 - INFO - 10.0.0.127 - - [02/Feb/2025 14:33:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-02-02 14:33:32,614 - INFO - Recebendo requisição...
+2025-02-02 14:33:32,619 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:33:32,622 - INFO - Quantidade de dezenas: 6
+2025-02-02 14:33:32,624 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:33:32,691 - INFO - Total de jogos gerados: 1666
+2025-02-02 14:33:32,695 - INFO - 10.0.0.127 - - [02/Feb/2025 14:33:32] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:33:56,876 - INFO - Recebendo requisição...
+2025-02-02 14:33:56,878 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:33:56,879 - INFO - Quantidade de dezenas: 13
+2025-02-02 14:33:56,880 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:33:57,688 - INFO - Total de jogos gerados: 769
+2025-02-02 14:33:57,741 - INFO - 10.0.0.127 - - [02/Feb/2025 14:33:57] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:38:37,316 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 14:38:37,325 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 14:38:44,424 - INFO - 10.0.0.127 - - [02/Feb/2025 14:38:44] "GET / HTTP/1.1" 200 -
+2025-02-02 14:38:45,558 - INFO - 10.0.0.127 - - [02/Feb/2025 14:38:45] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-02-02 14:38:45,566 - INFO - 10.0.0.127 - - [02/Feb/2025 14:38:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-02 14:39:01,332 - INFO - Recebendo requisição...
+2025-02-02 14:39:01,333 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:39:01,334 - INFO - Quantidade de dezenas: 20
+2025-02-02 14:39:01,337 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:39:01,376 - INFO - Total de jogos gerados: 500
+2025-02-02 14:39:01,379 - INFO - 10.0.0.127 - - [02/Feb/2025 14:39:01] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:40:17,920 - INFO - 10.0.0.127 - - [02/Feb/2025 14:40:17] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 14:42:28,535 - INFO - 10.0.0.127 - - [02/Feb/2025 14:42:28] "GET / HTTP/1.1" 200 -
+2025-02-02 14:42:29,803 - INFO - 10.0.0.127 - - [02/Feb/2025 14:42:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-02-02 14:42:29,809 - INFO - 10.0.0.127 - - [02/Feb/2025 14:42:29] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-02 14:42:42,789 - INFO - Recebendo requisição...
+2025-02-02 14:42:42,791 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:42:42,795 - INFO - Quantidade de dezenas: 20
+2025-02-02 14:42:42,796 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:42:42,828 - INFO - Total de jogos gerados: 500
+2025-02-02 14:42:42,833 - INFO - 10.0.0.127 - - [02/Feb/2025 14:42:42] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:43:06,511 - INFO - 10.0.0.127 - - [02/Feb/2025 14:43:06] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 14:49:59,205 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 14:49:59,219 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 14:50:04,545 - INFO - 10.0.0.127 - - [02/Feb/2025 14:50:04] "GET / HTTP/1.1" 200 -
+2025-02-02 14:50:05,118 - INFO - 10.0.0.127 - - [02/Feb/2025 14:50:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-02-02 14:50:05,120 - INFO - 10.0.0.127 - - [02/Feb/2025 14:50:05] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-02 14:50:16,111 - INFO - Recebendo requisição...
+2025-02-02 14:50:16,113 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 14:50:16,114 - INFO - Quantidade de dezenas: 6
+2025-02-02 14:50:16,116 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 14:50:16,168 - INFO - Total de jogos gerados: 1666
+2025-02-02 14:50:16,176 - INFO - 10.0.0.127 - - [02/Feb/2025 14:50:16] "POST /generate HTTP/1.1" 200 -
+2025-02-02 14:50:54,905 - INFO - 10.0.0.127 - - [02/Feb/2025 14:50:54] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 15:20:15,899 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2025-02-02 15:20:15,906 - INFO -  * Running on http://10.0.0.127:10000/ (Press CTRL+C to quit)
+2025-02-02 15:20:21,332 - INFO - 10.0.0.127 - - [02/Feb/2025 15:20:21] "GET / HTTP/1.1" 200 -
+2025-02-02 15:20:22,489 - INFO - 10.0.0.127 - - [02/Feb/2025 15:20:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-02-02 15:20:22,529 - INFO - 10.0.0.127 - - [02/Feb/2025 15:20:22] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-02 15:20:44,349 - INFO - Recebendo requisição...
+2025-02-02 15:20:44,350 - INFO - Números recebidos: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6]
+2025-02-02 15:20:44,352 - INFO - Quantidade de dezenas: 18
+2025-02-02 15:20:44,353 - INFO - Pares válidos encontrados: [12, 14, 16, 17, 21, 23, 24, 25, 26, 27, 28, 32, 34, 37, 38, 41, 42, 43, 45, 46, 48, 49, 52, 54]
+2025-02-02 15:20:44,428 - INFO - Total de jogos gerados: 555
+2025-02-02 15:20:44,433 - INFO - 10.0.0.127 - - [02/Feb/2025 15:20:44] "POST /generate HTTP/1.1" 200 -
+2025-02-02 15:21:25,498 - INFO - 10.0.0.127 - - [02/Feb/2025 15:21:25] "POST /check-results HTTP/1.1" 200 -
+2025-02-02 15:22:24,553 - INFO - 10.0.0.127 - - [02/Feb/2025 15:22:24] "POST /get-statistics HTTP/1.1" 200 -

@@ -12,3 +12,9 @@ numpy==1.23.5  # Ou uma versão estável que você sabe que funciona
 # numpy --prefer-binary
 # numpy --only-binary=:all:
 python-dotenv
+
+
+ 
+# pip install flask pandas==1.5.3 openpyxl==3.0.9 werkzeug<2.1 requests numpy==1.23.5 python-dotenv
+
+

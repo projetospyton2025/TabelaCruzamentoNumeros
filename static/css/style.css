@@ -154,3 +154,42 @@ button:hover {
     color: #333; /* Cor do texto */
     line-height: 35px;
 }
+.red {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.statistics-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--mega-sena-light);
+    border-radius: 8px;
+}
+
+.stats-table {
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.stats-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table th,
+.stats-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.stats-table th {
+    background-color: var(--mega-sena-green);
+    color: white;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}

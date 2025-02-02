@@ -16,9 +16,10 @@
             <ol>
                 <li>Digite 15 números (<small>de 0 a 9</small>)</li>
                 <li>Escolha quantas combinações quer gerar <small>(de 6 a 20 dezenas)</small></li>
-                <li>Clique em "Gerar Combinações, será gerada a tabela "Cruzamentos de Númeross"</li>
-                <li>Logo abaixo você poderá clicar em "Conferir Resultados" para ver se as sequências geradas foram sorteadas um dia.</li>
-                <li>Os pares válidos encontrados vem do Triangulo (Cruzamentos de Números) limitados a 20 números.</li>
+                <li>Clique em <span class="red">Gerar Combinações</span>, será gerada a tabela "Cruzamentos de Númeross", em forma de triângulo.</li>
+                <li>Logo abaixo você poderá clicar em <span class="red">Conferir Resultados</span> para ver se as sequências geradas foram sorteadas um dia (4, 5 e 6) acertos.</li>
+                <li>Os pares válidos encontrados vem do Triangulo <span class="red">(Cruzamentos de Números)</span> limitados a 20 números.</li>
+                <li>As <span class="red">Estatísticas</span> estão sendo geradas somente para (4 e 6) acertos.</li>
                 <li>Escolha uma combinação para apostar. Boa Sorte!</li>
             </ol>
         </div><br />
@@ -47,15 +48,19 @@
 
         <!-- Novo elemento para exibir os pares válidos -->
         <div class="valid-pairs-section">
-            <h2>Pares Válidos Encontrados <small>(Limitado para 20 apenas)</small></h2>
+            <h2>Pares Válidos Encontrados </h2>
             <div id="valid_pairs" class="valid-pairs-container"></div>
         </div>
-
 
 
         <div class="results-section">
             <h2>Combinações Geradas</h2>
             <div id="combinations-result"></div>
+            <div class="button-group">
+                <button id="check-results" class="btn btn-primary">Conferir Resultados</button>
+                <button id="show-stats" class="btn btn-primary">Estatísticas (5-6 Acertos)</button>
+            </div>
+            <div id="stats-result" class="mt-4"></div>
             
             <div class="download-buttons">
                 <button onclick="downloadResults('txt')">Download TXT</button>
@@ -63,6 +68,11 @@
                 <button onclick="downloadResults('xlsx')">Download Excel</button>
             </div>
         </div>
+
+
+
+
+
     </div>
     
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
